@@ -404,3 +404,4 @@
   (define-key evil-emacs-state-map (kbd "C-t") 'treemacs)
   )
     
+(setq make-backup-files nil)

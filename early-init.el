@@ -1,3 +1,1 @@
-
-;; (load-theme 'wombat)
-
+(load-theme 'wombat)
