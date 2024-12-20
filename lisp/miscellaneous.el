@@ -1,3 +1,6 @@
+;; 禁用光标闪烁
+(blink-cursor-mode 0)
+
 (setq inhibit-startup-message t)
 (global-display-line-numbers-mode 1)
 
@@ -52,3 +55,10 @@
 (setq scroll-conservatively 9999)
 
 (setq undo-fu-session-directory "/tmp/")
+
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
+
+;; emacs让帮助窗口出现在minibuffer上面
+(setq display-buffer-alist
+      '(("*Help*" . ((display-buffer-at-bottom) (window-height . 10)))))
