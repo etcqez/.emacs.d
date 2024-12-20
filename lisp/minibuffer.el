@@ -9,8 +9,14 @@
   :ensure t
   :config
   (marginalia-mode 1))
-;(progn
-;  (vertico-mode 'toggle)
-;  (marginalia-mode 'toggle))
+(progn
+  (vertico-mode 'toggle)
+  (marginalia-mode 'toggle))
 (vertico-mode 1)
 (marginalia-mode 1)
+
+(use-package orderless
+  :ensure t
+  :config
+  (setq completion-styles '(orderless basic)))
+

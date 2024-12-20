@@ -13,5 +13,4 @@
   (setq dashboard-show-recent-files t)
   (setq dashboard-show-bookmarks t)
   (setq dashboard-show-projects t))
-
-(setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
+(add-hook 'server-after-make-frame-hook (lambda () (dashboard-refresh-buffer)))

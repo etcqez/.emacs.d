@@ -1,7 +1,7 @@
-.histort/
-elpa/
+custom.el
+elpa
+history
 places
-transient/
-undo-fu-session/
-undo/
-
+recentf
+undo
+undo-fu-session

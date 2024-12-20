@@ -20,9 +20,6 @@
 ;; System default coding
 (set-language-environment 'utf-8)
 
-;; Load theme early to avoid the blinking
-(load-theme 'wombat)
-
 ;; Cleaner GUI
 (unless (eq system-type 'darwin)
   (menu-bar-mode -1))
