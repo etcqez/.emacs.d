@@ -11,6 +11,4 @@
   (setq avy-background t)
   (setq avy-keys (number-sequence ?a ?z))
   (setq avy-all-windows t)
-  (define-key evil-normal-state-map (kbd "s") #'avy-goto-char-timer)
-  (define-key evil-motion-state-map (kbd "s") #'avy-goto-char-timer)
   )

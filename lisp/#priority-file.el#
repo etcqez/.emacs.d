@@ -1,4 +1,3 @@
-;; test
 ;;; Vim Bindings
 ;(use-package evil
 ;  :demand t
@@ -26,13 +25,12 @@
 ;  :config
 ;  (evil-commentary-mode)
 ;  (define-key evil-motion-state-map (kbd "g c") 'evil-commentary-line)
-;  )
+ kkkkkkkk;  )
 ;
 ;(use-package evil-collection
 ;  :after evil
 ;  :config
-
-					;  (setq evil-want-integration t)
+;  (setq evil-want-integration t)
 ;  (evil-collection-init))
 ;
 ;(use-package evil-surround
