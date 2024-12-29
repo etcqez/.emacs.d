@@ -1,3 +1,6 @@
+(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font 12"))
+;(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font 12")
+
 ;; 禁用光标闪烁
 (blink-cursor-mode 0)
 
@@ -11,9 +14,8 @@
 (menu-bar-mode -1)
 (global-display-line-numbers-mode 1)
 (save-place-mode 1)
-(setq auto-save-default nil)
 
-
+;; 命令历史 文件历史
 (recentf-mode 1)
 (savehist-mode 1)
 
@@ -62,3 +64,5 @@
 ;; emacs让帮助窗口出现在minibuffer上面
 (setq display-buffer-alist
       '(("*Help*" . ((display-buffer-at-bottom) (window-height . 10)))))
+
+(setq ring-bell-function 'ignore)

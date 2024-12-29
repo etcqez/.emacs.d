@@ -1,3 +1,13 @@
+(use-package surround
+  :config
+  ;; (defhydra hydra-surround (:color blue)
+    ;; ("s" surround-insert "surround")
+    ;; ("c" surround-change "change")
+    ;; ("k" surround-kill "kill inner")
+    ;; ("K" surround-kill-outer "kill outer")
+    ;; ("q" nil "close")
+    ))
+
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
@@ -20,7 +30,15 @@
    '("9" . meow-digit-argument)
    '("0" . meow-digit-argument)
    '("/" . meow-keypad-describe-key)
-   '("?" . meow-cheatsheet))
+   '("?" . meow-cheatsheet)
+   '("b" . consult-buffer)
+   '("s" . avy-goto-char-timer)
+   '("w" . ace-window)
+   '("r" . revert-buffer)
+   '("S" . surround-insert)
+   '("C" . surround-change)
+   '("k" . surround-kill)
+   '("K" . surround-kill-outer))
   (meow-normal-define-key
    '("0" . meow-expand-0)
    '("9" . meow-expand-9)
@@ -43,10 +61,10 @@
    '("b" . meow-back-word)
    '("B" . meow-back-symbol)
    '("c" . meow-change)
-   '("d" . meow-delete)
-   '("D" . meow-backward-delete)
-   '("e" . meow-next-word)
-   '("E" . meow-next-symbol)
+   '("s" . meow-delete)
+   '("S" . meow-backward-delete)
+   '("w" . meow-next-word)
+   '("W" . meow-next-symbol)
    '("f" . meow-find)
    '("g" . meow-cancel-selection)
    '("G" . meow-grab)
@@ -67,15 +85,16 @@
    '("p" . meow-yank)
    '("q" . meow-quit)
    '("Q" . meow-goto-line)
-   '("r" . meow-replace)
-   '("R" . meow-swap-grab)
-   '("s" . meow-kill)
-   '("t" . meow-till)
+   '("r" . undo-redo)
+   '("d" . meow-kill)
+   '("t" . meow-replace)
+   '("T" . meow-swap-grab)
+   ;; '("t" . meow-till)
    '("u" . meow-undo)
    '("U" . meow-undo-in-selection)
    '("v" . meow-visit)
-   '("w" . meow-mark-word)
-   '("W" . meow-mark-symbol)
+   '("e" . meow-mark-word)
+   '("E" . meow-mark-symbol)
    '("x" . meow-line)
    '("X" . meow-goto-line)
    '("y" . meow-save)
@@ -84,9 +103,10 @@
    '("'" . repeat)
    '("<escape>" . ignore)))
 
- (use-package meow
-   :init
-   (meow-global-mode 1)
-   :config
-   (meow-setup)
-   (meow-setup-line-number))
+(use-package meow
+  :init
+  (meow-global-mode 1)
+  :config
+
+  (meow-setup)
+  (meow-setup-line-number))

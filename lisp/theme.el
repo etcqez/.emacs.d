@@ -15,9 +15,9 @@
       (load-theme 'airline-doom-one t)
 )
 
-(if (display-graphic-p)
-    (progn
-  (progn
-    (setq term-default-bg-color "black")
-    (setq term-default-fg-color "white")
-    (add-hook 'after-init-hook 'global-hl-line-mode))))
+;; (if (display-graphic-p)
+;;     (progn
+;;   (progn
+;;     (setq term-default-bg-color "black")
+;;     (setq term-default-fg-color "white")
+;;     (add-hook 'after-init-hook 'global-hl-line-mode))))

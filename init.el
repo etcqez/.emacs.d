@@ -11,9 +11,22 @@
 (setq use-package-always-ensure t)
 (unless package-archive-contents
   (package-refresh-contents))
-(require 'use-package)
+(require 'use-package)'
 (setq use-package-always-ensure t)
 
+(load "~/.emacs.d/lisp/theme.el")
+(load "~/.emacs.d/lisp/miscellaneous.el")
+(load "~/.emacs.d/lisp/color.el")
+(load "~/.emacs.d/lisp/dashboard.el")
+
+(load "~/.emacs.d/lisp/meow.el")
+(load "~/.emacs.d/lisp/avy.el")
+(load "~/.emacs.d/lisp/vertico.el")
+(load "~/.emacs.d/lisp/completion.el")
+(load "~/.emacs.d/lisp/format-all.el")
+(load "~/.emacs.d/lisp/keybindings.el")
+(load "~/.emacs.d/lisp/neotree.el")
+(load "~/.emacs.d/lisp/built-in.el")
 
 
 
@@ -29,10 +42,10 @@
 
 
 
-;; 优先加载 my-priority-file.el
-(load "~/.emacs.d/lisp/priority-file.el")
-
-;; 然后加载其他 .el 文件
-(dolist (file (directory-files "~/.emacs.d/lisp/" t "\\.el$"))
-  (unless (string= file "~/.emacs.d/lisp/priority-file.el")
-    (load file)))
+;;; 优先加载 my-priority-file.el
+;(load "~/.emacs.d/lisp/priority-file.el")
+;
+;;; 然后加载其他 .el 文件
+;(dolist (file (directory-files "~/.emacs.d/lisp/" t "\\.el$"))
+;  (unless (string= file "~/.emacs.d/lisp/priority-file.el")
+;    (load file)))

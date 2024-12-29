@@ -1,5 +1,6 @@
 (use-package neotree
   :ensure t
+
   :config
   ;; 设置为使用文件图标
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
