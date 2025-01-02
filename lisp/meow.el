@@ -1,12 +1,5 @@
 (use-package surround
-  :config
-  ;; (defhydra hydra-surround (:color blue)
-    ;; ("s" surround-insert "surround")
-    ;; ("c" surround-change "change")
-    ;; ("k" surround-kill "kill inner")
-    ;; ("K" surround-kill-outer "kill outer")
-    ;; ("q" nil "close")
-    ))
+  :config)
 
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
@@ -107,6 +100,5 @@
   :init
   (meow-global-mode 1)
   :config
-
   (meow-setup)
   (meow-setup-line-number))
