@@ -1,0 +1,4 @@
+(use-package paren
+  :init
+  (show-paren-mode +1))
+

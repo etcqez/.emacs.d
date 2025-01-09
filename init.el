@@ -7,8 +7,18 @@
 (setq scroll-conservatively 9999)
 
 ;; 字体
-(add-to-list 'default-frame-alist '(font . "Hack Nerd Font 15"))
-;(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font 12")
+;; (add-to-list 'default-frame-alist '(font . "Hack Nerd Font 15") '(font . "FiraCode Nerd Font 15")
+;; (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font 12")
+(defun set-font-based-on-availability ()
+  "Set font to Hack Nerd Font if available, otherwise use Fira Code Nerd Font."
+  (if (member "Hack Nerd Font" (font-family-list))
+      (setq default-frame-alist
+            '((font . "Hack Nerd Font-11")))
+    (setq default-frame-alist
+          '((font . "Fira Code Nerd Font-11")))))
+
+;; 调用函数以设置字体
+(set-font-based-on-availability)
 
 ;; 禁用光标闪烁
 (blink-cursor-mode 0)
@@ -50,22 +60,6 @@
 (require 'use-package)'
 (setq use-package-always-ensure t)
 
-;; 终端复制
-;; 检查是否为 macOS
-;; (unless (eq system-type 'darwin)
-;;   (use-package xclip
-;;     :ensure t
-;;     :config
-;;     ;; 在这里添加 xclip 的配置
-;;     (xclip-mode 1)))
-
-;; (when (eq system-type 'darwin)  ;; 检查是否为 macOS
-;;   (use-package osx-clipboard
-;;     :ensure t
-;;     :config
-;;     (osx-clipboard-mode 1))
-;; )
-
 (load "~/.emacs.d/lisp/dashboard.el")
 (load "~/.emacs.d/lisp/meow.el")
 (load "~/.emacs.d/lisp/theme.el")
@@ -81,30 +75,27 @@
 (load "~/.emacs.d/lisp/neotree.el")
 (load "~/.emacs.d/lisp/isearch.el")
 (load "~/.emacs.d/lisp/autosave.el")
+(load "~/.emacs.d/lisp/paren.el")
 
+(setopt use-short-answers t)
 
+;; 启动守护进程
+(use-package server
+  :config
+  (unless (server-running-p)
+    (server-start)))
 
-
-
-
-
-
-
-
-
-
-
-
-
-;;; 优先加载 my-priority-file.el
-;(load "~/.emacs.d/lisp/priority-file.el")
-;
-;;; 然后加载其他 .el 文件
-;(dolist (file (directory-files "~/.emacs.d/lisp/" t "\\.el$"))
-;  (unless (string= file "~/.emacs.d/lisp/priority-file.el")
-;    (load file)))
-
-
-
-
-
+;; 终端复制
+;; 检查是否为 macOS
+(unless (eq system-type 'darwin)
+  (use-package xclip
+    :ensure t
+    :config
+    ;; 在这里添加 xclip 的配置
+    (xclip-mode 1)))
+(when (eq system-type 'darwin)  ;; 检查是否为 macOS
+  (use-package osx-clipboard
+    :ensure t
+    :config
+    (osx-clipboard-mode 1))
+)

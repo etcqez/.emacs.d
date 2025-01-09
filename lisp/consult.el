@@ -4,6 +4,7 @@
          ("M-s M-g" . consult-grep)
          ;; Search for files names recursively
          ("M-s M-f" . consult-find)
+         ("M-s M-f" . consult-find)
          ;; Search through the outline (headings) of the file
          ("M-s M-o" . consult-outline)
          ;; Search the current buffer

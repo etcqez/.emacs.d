@@ -21,3 +21,6 @@
 
 (setq ring-bell-function 'ignore)
 
+(use-package hl-line
+  :init
+  (global-hl-line-mode +1))

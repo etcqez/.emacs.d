@@ -8,6 +8,11 @@
 (setq gc-cons-threshold most-positive-fixnum)
 (add-hook 'after-init-hook (lambda ()
 			     (setq gc-cons-threshold 800000)))
+(setq gc-cons-percentage 0.2
+      gc-cons-threshold (* 128 1024 1024))
+(add-hook 'focus-out-hook #'garbage-collect)
+
+(setq process-adaptive-read-buffering t)
 
 ;; Package initialize occurs automatically, before `user-init-file' is
 ;; loaded, but after `early-init-file'. We handle package

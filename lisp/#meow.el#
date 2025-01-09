@@ -18,24 +18,18 @@
    '("j" . "H-j")
    '("k" . "H-k")
    ;; Use SPC (0-9) for digit arguments.
-   ;; '("1" . meow-digit-argument)
-   ;; '("2" . meow-digit-argument)
-   ;; '("3" . meow-digit-argument)
-   ;; '("4" . meow-digit-argument)
-   ;; '("5" . meow-digit-argument)
+   '("1" . meow-digit-argument)
+   '("2" . meow-digit-argument)
+   '("3" . meow-digit-argument)
+   '("4" . meow-digit-argument)
+   '("5" . meow-digit-argument)
    '("6" . meow-digit-argument)
    '("7" . meow-digit-argument)
    '("8" . meow-digit-argument)
    '("9" . meow-digit-argument)
-   ;; '("0" . meow-digit-argument)
-   '("0" . delete-window)
-   '("1" . delete-other-windows)
-   '("2" . split-window-below)
-   '("3" . split-window-right)
-   '("4" . switch-to-buffer-other-frame)
+   '("0" . meow-digit-argument)
    '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet)
-   
    '("b" . consult-buffer)
    '("s" . avy-goto-char-timer)
    '("w" . ace-window)
@@ -92,13 +86,13 @@
    '("q" . meow-quit)
    '("Q" . meow-goto-line)
    '("d" . meow-kill)
-   '("D" . meow-kill-whole-line)
+   '("t" . meow-replace)
    '("T" . meow-swap-grab)
-   '("t" . meow-till)
+   ;; '("t" . meow-till)
    '("u" . meow-undo)
    '("U" . undo-redo)
    ;; '("U" . meow-undo-in-selection)
-   '("v" . set-mark-command)
+   '("v" . meow-visit)
    '("e" . meow-mark-word)
    '("E" . meow-mark-symbol)
    '("x" . meow-line)
@@ -108,19 +102,13 @@
    '("z" . meow-pop-selection)
    '("'" . repeat)
    '("<escape>" . ignore)
-   '("r" . replace-string)
-   '("R" . meow-replace)
-   ;; '("r" . ((lambda ()
-   ;; (interactive)
-   ;; (delete-char 1)  ;; 删除当前字符
-   ;; (insert (read-char "Replace with: ")) ;; 提示用户输入字符并插入
-   ;; )))
-   '("/" . isearch-forward)
-   '("n" . isearch-repeat-forward)
-   '("N" . isearch-repeat-backward)
-   '("*" . isearch-forward-symbol-at-point)
-   '("=" . indent-region)
+   '("r" . ((lambda ()
+   (interactive)
+   (delete-char 1)  ;; 删除当前字符
+   (insert (read-char "Replace with: ")) ;; 提示用户输入字符并插入
+   )))
    ))
+
 
 (use-package meow
   :init
@@ -129,7 +117,8 @@
   (meow-setup)
   (meow-setup-line-number)
   (setq meow-use-cursor-position-hack t
-	meow-use-enhanced-selection-effect t)  ;; optional, for visual effect
-    (setopt meow-use-clipboard t
-          meow-expand-hint-counts nil)
+      meow-use-enhanced-selection-effect t)  ;; optional, for visual effect
   )
+(meow-define-key
+ 'normal "r"  ;; 在 normal 模式下绑定 'r'
+ )
