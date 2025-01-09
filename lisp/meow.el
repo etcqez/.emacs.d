@@ -1,3 +1,9 @@
+;; 切换最近buffer
+(defun switch-to-last-buffer ()
+  (interactive)
+  (switch-to-buffer nil))
+;(define-key evil-normal-state-map (kbd "SPC TAB") 'switch-to-last-buffer)
+
 (use-package surround
   :config)
 
@@ -31,7 +37,8 @@
    '("S" . surround-insert)
    '("C" . surround-change)
    '("k" . surround-kill)
-   '("K" . surround-kill-outer))
+   '("K" . surround-kill-outer)
+   '("TAB" . switch-to-last-buffer))
   (meow-normal-define-key
    '("0" . meow-expand-0)
    '("9" . meow-expand-9)

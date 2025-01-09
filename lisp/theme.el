@@ -13,11 +13,11 @@
   :config
       (load-theme 'catppuccin :no-confirm)
       (load-theme 'airline-doom-one t)
-)
+      )
 
-;; (if (display-graphic-p)
-;;     (progn
-;;   (progn
-;;     (setq term-default-bg-color "black")
-;;     (setq term-default-fg-color "white")
-;;     (add-hook 'after-init-hook 'global-hl-line-mode))))
+;; emacs让帮助窗口出现在minibuffer上面
+(setq display-buffer-alist
+      '(("*Help*" . ((display-buffer-at-bottom) (window-height . 10)))))
+
+(setq ring-bell-function 'ignore)
+

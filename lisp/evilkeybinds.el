@@ -36,14 +36,6 @@
 (defadvice other-frame (before other-frame-now activate)
            (when buffer-file-name (save-buffer)))
 
-(use-package format-all
-  :commands format-all-mode
-  :hook (prog-mode . format-all-mode)
-  :config
-  (setq-default format-all-formatters
-                '(("C"     (astyle "--mode=c"))
-                  ("Shell" (shfmt "-i" "4" "-ci")))))
-
 ;; mark
 (add-hook 'minibuffer-setup-hook
           (lambda ()

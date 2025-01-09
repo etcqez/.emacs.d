@@ -12,14 +12,6 @@
 ;  (evil-mode 1)
 ;  )
 ;
-;(use-package undo-fu
-;  :config
-;  (global-unset-key (kbd "C-z"))
-;  (global-set-key (kbd "C-z")   'undo-fu-only-undo)
-;  (global-set-key (kbd "C-S-z") 'undo-fu-only-redo))
-;(use-package undo-fu-session
-;  )
-;(undo-fu-session-global-mode)
 ;
 ;(use-package evil-commentary
 ;  :demand t
@@ -47,3 +39,14 @@
 ;  (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)
 ;  (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)
 ;  )
+
+;; 光标颜色
+;(setq evil-default-cursor       '("DodgerBlue1" box)
+;      evil-normal-state-cursor  '("DeepPink" box)
+;      evil-emacs-state-cursor   '("orange" box)
+;      evil-motion-state-cursor  '("SeaGreen1" box)
+;      evil-insert-state-cursor  '("white" bar)
+;      evil-visual-state-cursor  '("white" bar)
+;      evil-replace-state-cursor '("pink" box))
+;(setopt use-short-answers t)
+

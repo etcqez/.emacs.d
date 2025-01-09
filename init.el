@@ -7,7 +7,7 @@
 (setq scroll-conservatively 9999)
 
 ;; 字体
-(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font 12"))
+(add-to-list 'default-frame-alist '(font . "Hack Nerd Font 15"))
 ;(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font 12")
 
 ;; 禁用光标闪烁
@@ -31,12 +31,11 @@
 (setq inhibit-startup-message t)
 (global-display-line-numbers-mode 1)
 
-;; 关闭自动保存
-(setq make-backup-files nil)  ;; 禁止创建备份文件
-(setq auto-save-list-file-prefix nil)  ;; 关闭自动保存列表文件
-
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
+;; 检查 custom.el 是否存在
+(let ((custom-file (expand-file-name "custom.el" user-emacs-directory)))
+  (if (file-exists-p custom-file)
+      (load custom-file)
+    (message "custom.el not found, skipping load.")))
 
 ;; Initialize package sources
 (require 'package)
@@ -52,25 +51,36 @@
 (setq use-package-always-ensure t)
 
 ;; 终端复制
-(use-package xclip
-  :ensure t
-  :config
-  (xclip-mode 1)
-  )
+;; 检查是否为 macOS
+;; (unless (eq system-type 'darwin)
+;;   (use-package xclip
+;;     :ensure t
+;;     :config
+;;     ;; 在这里添加 xclip 的配置
+;;     (xclip-mode 1)))
 
-(load "~/.emacs.d/lisp/theme.el")
-(load "~/.emacs.d/lisp/miscellaneous.el")
-(load "~/.emacs.d/lisp/color.el")
+;; (when (eq system-type 'darwin)  ;; 检查是否为 macOS
+;;   (use-package osx-clipboard
+;;     :ensure t
+;;     :config
+;;     (osx-clipboard-mode 1))
+;; )
+
 (load "~/.emacs.d/lisp/dashboard.el")
-
 (load "~/.emacs.d/lisp/meow.el")
+(load "~/.emacs.d/lisp/theme.el")
+(load "~/.emacs.d/lisp/undo.el")
+(load "~/.emacs.d/lisp/color.el")
+
 (load "~/.emacs.d/lisp/avy.el")
 (load "~/.emacs.d/lisp/vertico.el")
+(load "~/.emacs.d/lisp/consult.el")
 (load "~/.emacs.d/lisp/completion.el")
 (load "~/.emacs.d/lisp/format-all.el")
 (load "~/.emacs.d/lisp/keybindings.el")
 (load "~/.emacs.d/lisp/neotree.el")
-(load "~/.emacs.d/lisp/built-in.el")
+(load "~/.emacs.d/lisp/isearch.el")
+(load "~/.emacs.d/lisp/autosave.el")
 
 
 
@@ -93,3 +103,8 @@
 ;(dolist (file (directory-files "~/.emacs.d/lisp/" t "\\.el$"))
 ;  (unless (string= file "~/.emacs.d/lisp/priority-file.el")
 ;    (load file)))
+
+
+
+
+
