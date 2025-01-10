@@ -16,4 +16,5 @@ auto-save-list/
 
 # 忽略 Emacs 中的垃圾文件
 *#
-
+.cache
+transient
