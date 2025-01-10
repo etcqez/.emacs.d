@@ -66,14 +66,16 @@
 (load "~/.emacs.d/lisp/isearch.el")
 (load "~/.emacs.d/lisp/autosave.el")
 (load "~/.emacs.d/lisp/paren.el")
+(load "~/.emacs.d/lisp/ace-window.el")
 
 (setopt use-short-answers t)
 
 ;; 启动守护进程
-(use-package server
-  :config
-  (unless (server-running-p)
-    (server-start)))
+;; (use-package server
+;;   :config
+;;   (unless (server-running-p)
+;;     (server-start)
+;;     ))
 
 ;; linux
 (unless (eq system-type 'darwin)
@@ -119,3 +121,9 @@
   (set-font-based-on-availability)
 
   )
+
+;; 终端鼠标支持
+(xterm-mouse-mode 1)
+
+
+
