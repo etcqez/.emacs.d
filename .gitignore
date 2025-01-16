@@ -10,10 +10,8 @@ session.*
 auto-save-list/
 # 忽略 Emacs 备份文件
 *~
-
 # 忽略 Emacs 自动保存文件
 .#*
-
 # 忽略 Emacs 中的垃圾文件
 *#
 .cache

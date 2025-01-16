@@ -23,3 +23,6 @@
 ;; (let ((start 5)
 ;;       (end 15))
 ;;   (move-overlay zck/overlay start end))
+
+(global-font-lock-mode t)
+(setq font-lock-maximum-decoration t)

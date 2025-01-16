@@ -1,14 +1,12 @@
-;; clm/open-command-log-buffer C-c o
-;; evll C-c C-e
-
 ;; scrolloff
 (setq scroll-step 1)
 (setq scroll-margin 5)
 (setq scroll-conservatively 9999)
 
-;; 字体
-;; (add-to-list 'default-frame-alist '(font . "Hack Nerd Font 15") '(font . "FiraCode Nerd Font 15")
-;; (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font 12")
+;; 检查 custom.el 是否存在
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 ;; 禁用光标闪烁
 (blink-cursor-mode 0)
@@ -31,12 +29,6 @@
 (setq inhibit-startup-message t)
 (global-display-line-numbers-mode 1)
 
-;; 检查 custom.el 是否存在
-(let ((custom-file (expand-file-name "custom.el" user-emacs-directory)))
-  (if (file-exists-p custom-file)
-      (load custom-file)
-    (message "custom.el not found, skipping load.")))
-
 ;; Initialize package sources
 (require 'package)
 (setq package-archives '(("gnu" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
@@ -50,10 +42,10 @@
 (require 'use-package)'
 (setq use-package-always-ensure t)
 
+(load "~/.emacs.d/lisp/undo.el")
 (load "~/.emacs.d/lisp/dashboard.el")
 (load "~/.emacs.d/lisp/meow.el")
 (load "~/.emacs.d/lisp/theme.el")
-(load "~/.emacs.d/lisp/undo.el")
 (load "~/.emacs.d/lisp/color.el")
 
 (load "~/.emacs.d/lisp/avy.el")
@@ -67,63 +59,22 @@
 (load "~/.emacs.d/lisp/autosave.el")
 (load "~/.emacs.d/lisp/paren.el")
 (load "~/.emacs.d/lisp/ace-window.el")
+(load "~/.emacs.d/lisp/syntax.el")
+(load "~/.emacs.d/lisp/system.el")
+(load "~/.emacs.d/lisp/daemon.el")
+
+(load "~/.emacs.d/lisp/markdown.el")
 
 (setopt use-short-answers t)
 
 ;; 启动守护进程
-;; (use-package server
-;;   :config
-;;   (unless (server-running-p)
-;;     (server-start)
-;;     ))
-
-;; linux
-(unless (eq system-type 'darwin)
-
-  ;; 终端复制
-  (use-package xclip
-    :ensure t
-    :config
-    ;; 在这里添加 xclip 的配置
-    (xclip-mode 1))
-  ;;
-  font
-  (defun set-font-based-on-availability ()
-    "Set font to Hack Nerd Font if available, otherwise use Fira Code Nerd Font."
-    (if (member "Hack Nerd Font" (font-family-list))
-	(setq default-frame-alist
-              '((font . "Hack Nerd Font-11")))
-      (setq default-frame-alist
-            '((font . "Fira Code Nerd Font-11")))))
-
-  ;; 调用函数以设置字体
-  (set-font-based-on-availability)
-
-  )
-
-;; macos
-(when (eq system-type 'darwin)  ;; 检查是否为 macOS
-  (use-package osx-clipboard
-    :ensure t
-    :config
-
-    ;; font
-    (osx-clipboard-mode 1))
-  (defun set-font-based-on-availability ()
-    "Set font to Hack Nerd Font if available, otherwise use Fira Code Nerd Font."
-    (if (member "Hack Nerd Font" (font-family-list))
-	(setq default-frame-alist
-              '((font . "Hack Nerd Font-15")))
-      (setq default-frame-alist
-            '((font . "Fira Code Nerd Font-15")))))
-
-  ;; 调用函数以设置字体
-  (set-font-based-on-availability)
-
-  )
+(use-package server
+  :config
+  (unless (server-running-p)
+    (server-start)
+    ))
 
 ;; 终端鼠标支持
 (xterm-mouse-mode 1)
-
 
 
