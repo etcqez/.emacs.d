@@ -1,10 +1,9 @@
-;; (use-package undo-fu)
-;; (use-package undo-fu-session
-;;  )
-;; (undo-fu-session-global-mode)
-;; (setq undo-fu-session-directory "/tmp/")
-
-(use-package undo-tree
-  :ensure t
+(use-package undo-fu)
+(use-package undo-fu-session
   :config
-  (global-undo-tree-mode 1))
+  (undo-fu-session-global-mode +1))
+(use-package vundo
+  :config
+  (with-eval-after-load 'meow
+    (meow-leader-define-key
+     '("u" . vundo))))

@@ -61,20 +61,29 @@
 (load "~/.emacs.d/lisp/ace-window.el")
 (load "~/.emacs.d/lisp/syntax.el")
 (load "~/.emacs.d/lisp/system.el")
-(load "~/.emacs.d/lisp/daemon.el")
+;; (load "~/.emacs.d/lisp/daemon.el")
+(load "~/.emacs.d/lisp/git.el")
+(load "~/.emacs.d/lisp/expreg.el")
 
-(load "~/.emacs.d/lisp/markdown.el")
+;; (load "~/.emacs.d/lisp/markdown.el")
 
 (setopt use-short-answers t)
 
 ;; 启动守护进程
+(when (display-graphic-p)  ; 检查是否在图形界面中
 (use-package server
   :config
   (unless (server-running-p)
     (server-start)
     ))
+  )       ; 启动 server
 
 ;; 终端鼠标支持
 (xterm-mouse-mode 1)
 
 
+(use-package delsel
+  :config
+  (delete-selection-mode +1))
+
+(setq ns-pop-up-frames nil)
