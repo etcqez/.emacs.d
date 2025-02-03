@@ -1,4 +1,14 @@
-;; scrolloff
+;; (defun my/raise-frame ()
+;;   "Raise the selected frame to the front."
+;;   (interactive)
+;;   (select-frame-set-input-focus (selected-frame)))
+;; (defun my/raise-frame-and-open-file (file)
+;;   "Raise the selected frame to the front and open FILE."
+;;   (interactive "FFile to open: ")
+;;   (select-frame-set-input-focus (selected-frame))
+;;   (find-file file))
+
+;; (add-hook 'window-setup-hook 'my/raise-frame);; scrolloff
 (setq scroll-step 1)
 (setq scroll-margin 5)
 (setq scroll-conservatively 9999)
@@ -23,6 +33,7 @@
 (save-place-mode 1)
 
 ;; 命令历史 文件历史
+(setq recentf-max-saved-items 50) ;; 或者更大
 (recentf-mode 1)
 (savehist-mode 1)
 
@@ -61,9 +72,10 @@
 (load "~/.emacs.d/lisp/ace-window.el")
 (load "~/.emacs.d/lisp/syntax.el")
 (load "~/.emacs.d/lisp/system.el")
-;; (load "~/.emacs.d/lisp/daemon.el")
 (load "~/.emacs.d/lisp/git.el")
 (load "~/.emacs.d/lisp/expreg.el")
+(load "~/.emacs.d/lisp/daemon.el")
+(load "~/.emacs.d/lisp/indent.el")
 
 ;; (load "~/.emacs.d/lisp/markdown.el")
 
@@ -81,9 +93,10 @@
 ;; 终端鼠标支持
 (xterm-mouse-mode 1)
 
-
+;; 粘贴时删除选区
 (use-package delsel
   :config
   (delete-selection-mode +1))
 
+;; 当前帧打开文件
 (setq ns-pop-up-frames nil)

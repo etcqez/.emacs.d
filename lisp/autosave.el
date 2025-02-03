@@ -17,3 +17,9 @@
 ;; (defun my/save-all-buffers ()
 ;;   (save-some-buffers "!"))
 ;; (add-hook 'focus-out-hook #'my/save-all-buffers)
+(setq make-backup-files nil)
+(setq backup-inhibited nil)
+(setq create-lockfiles nil)
+;; (desktop-save-mode 1)
+;; (setq desktop-path '("~/.emacs.d/desktop/"))
+

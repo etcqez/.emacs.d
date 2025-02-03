@@ -3,9 +3,9 @@
   (show-paren-mode +1)
   )
 
-(use-package elec-pair
+(use-package smartparens
   :config
-  (electric-pair-mode +1)
+  (smartparens-global-mode t)
   )
 
 (use-package rainbow-delimiters
