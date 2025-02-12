@@ -4,3 +4,4 @@
 (with-eval-after-load 'dashboard
   (define-key dashboard-mode-map (kbd "q") 'save-buffers-kill-terminal)
   )
+(global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)
