@@ -24,9 +24,9 @@
 (setq inhibit-startup-message t)
 (global-display-line-numbers-mode 1)
 
-(set-fringe-mode 10)        ; Give some breathing room
-(scroll-bar-mode -1)        ; Disable visible scrollbar
-(tool-bar-mode -1)
+;(set-fringe-mode 10)        ; Give some breathing room
+;(scroll-bar-mode -1)        ; Disable visible scrollbar
+;(tool-bar-mode -1)
 (tooltip-mode -1)
 (menu-bar-mode -1)
 (global-display-line-numbers-mode 1)
@@ -77,7 +77,7 @@
 (load "~/.emacs.d/lisp/daemon.el")
 (load "~/.emacs.d/lisp/indent.el")
 
-;; (load "~/.emacs.d/lisp/markdown.el")
+(load "~/.emacs.d/lisp/markdown.el")
 
 (setopt use-short-answers t)
 
@@ -99,4 +99,4 @@
   (delete-selection-mode +1))
 
 ;; 当前帧打开文件
-(setq ns-pop-up-frames nil)
+;(setq ns-pop-up-frames nil)
