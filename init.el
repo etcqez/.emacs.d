@@ -76,8 +76,9 @@
 (load "~/.emacs.d/lisp/expreg.el")
 (load "~/.emacs.d/lisp/daemon.el")
 (load "~/.emacs.d/lisp/indent.el")
+(load "~/.emacs.d/lisp/mouse.el")
 
-(load "~/.emacs.d/lisp/markdown.el")
+;; (load "~/.emacs.d/lisp/markdown.el")
 
 (setopt use-short-answers t)
 
