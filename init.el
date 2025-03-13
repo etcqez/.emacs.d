@@ -70,13 +70,15 @@
 (load "~/.emacs.d/lisp/autosave.el")
 (load "~/.emacs.d/lisp/paren.el")
 (load "~/.emacs.d/lisp/ace-window.el")
-(load "~/.emacs.d/lisp/syntax.el")
-(load "~/.emacs.d/lisp/system.el")
+;; (load "~/.emacs.d/lisp/system.el")
 (load "~/.emacs.d/lisp/git.el")
 (load "~/.emacs.d/lisp/expreg.el")
 (load "~/.emacs.d/lisp/daemon.el")
 (load "~/.emacs.d/lisp/indent.el")
 (load "~/.emacs.d/lisp/mouse.el")
+(load "~/.emacs.d/lisp/chinese.el")
+(load "~/.emacs.d/lisp/scratch.el")
+;; (load "~/.emacs.d/lisp/jieba.el")
 
 ;; (load "~/.emacs.d/lisp/markdown.el")
 

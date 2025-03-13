@@ -7,7 +7,7 @@
 ;; Make regular Isearch interpret the empty space as a regular
 ;; expression that matches any character between the words you give
 ;; it.
-(setq search-whitespace-regexp ".*?")
+;; (setq search-whitespace-regexp ".*?")
 
 ;; Install the `wgrep' package.  It makes the grep buffers editable.
 
