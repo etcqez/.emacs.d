@@ -11,6 +11,10 @@
 
 (add-hook 'dashboard-mode-hook
           (lambda ()
-            (define-key dashboard-mode-map (kbd "s") 'avy-goto-char-timer)
-            (define-key dashboard-mode-map (kbd "q") 'save-buffers-kill-terminal)
+            ;; (define-key dashboard-mode-map (kbd "s") 'avy-goto-char-timer)
+            ;; (define-key dashboard-mode-map (kbd "q") 'save-buffers-kill-terminal)
             ))
+
+
+;; (global-set-key (kbd "C-c d") (lambda () (interactive) (switch-to-buffer "*dashboard*")))
+;; (global-set-key (kbd "C-c s") (lambda () (interactive) (switch-to-buffer "*scratch*")))

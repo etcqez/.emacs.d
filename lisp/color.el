@@ -1,5 +1,5 @@
   ;; v模式颜色
-  (set-face-attribute 'region nil :background "royalblue")
+  (set-face-attribute 'region nil :background "royalblue4")
   (set-face-attribute 'mouse-drag-and-drop-region nil :background "blue")
   ;; ;; 搜索颜色
   (set-face-attribute 'lazy-highlight nil :foreground "black" :background "green")

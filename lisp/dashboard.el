@@ -13,10 +13,9 @@
   (setq dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
   ;; 守护进程
   ;; (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-  (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
 
   ;; 设置启动页内容
-  (setq dashboard-items '((recents . 25)))
+  (setq dashboard-items '((recents . 50)))
   ;; (setq dashboard-show-recent-files t)
   ;; (setq dashboard-show-bookmarks t)
   ;; (setq dashboard-show-projects t)
