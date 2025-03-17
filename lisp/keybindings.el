@@ -18,3 +18,7 @@
 
 ;; (global-set-key (kbd "C-c d") (lambda () (interactive) (switch-to-buffer "*dashboard*")))
 ;; (global-set-key (kbd "C-c s") (lambda () (interactive) (switch-to-buffer "*scratch*")))
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c <tab>") 'org-metaright)
+  (define-key org-mode-map (kbd "C-c S-<tab>") 'org-metaleft)
+  )

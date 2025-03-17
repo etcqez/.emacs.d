@@ -42,7 +42,7 @@
    '("S" . surround-insert)
    '("C" . surround-change)
    '("k" . surround-kill)
-   '("K" . ksurround-kill-outerk)
+   '("K" . surround-kill-outer)
    '("q" . save-buffers-kill-terminal))
   (meow-normal-define-key
    ;; '("C-f" . scroll-up-command)

@@ -10,7 +10,7 @@
 (use-package files
   :ensure nil
   :config
-  (setq auto-save-visited-interval 30)
+  (setq auto-save-visited-interval 15)
   (auto-save-visited-mode +1))
 
 ;; 聚焦时保存所有缓冲区

@@ -35,4 +35,6 @@
 (setq cns-debug nil) ; disable debug output, default is t
 (require 'cns nil t)
 (when (featurep 'cns)
-  (add-hook 'find-file-hook 'cns-auto-enable))
+  (add-hook 'find-file-hook 'cns-auto-enable)
+  (cns-auto-enable)
+  )
