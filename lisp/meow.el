@@ -24,7 +24,7 @@
    '("7" . meow-digit-argument)
    '("8" . meow-digit-argument)
    '("9" . meow-digit-argument)
-   ;; '("0" . meow-digit-argument)
+   '("0" . meow-digit-argument)
    ;; '("0" . delete-window)
    ;; '("1" . delete-other-windows)
    ;; '("2" . split-window-below)
@@ -32,17 +32,18 @@
    ;; '("4" . switch-to-buffer-other-frame)
    '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet)
-   
    '("b" . consult-buffer)
-   '("f" . avy-goto-char-timer)
-   '("s" . (lambda () (interactive) (switch-to-buffer "*scratch*")))
+   '("s" . avy-goto-char-timer)
+   '("
+SPC" . (lambda () (interactive) (switch-to-buffer "*scratch*")))
    '("d" . (lambda () (interactive) (switch-to-buffer "*dashboard*")))
+   '("e" . (lambda () (interactive) (find-file "~/.emacs.d/lisp/")))
+   '("t" . (lambda () (interactive) (find-file "~/todo.org")))
    '("w" . ace-window)
    '("r" . revert-buffer)
    '("S" . surround-insert)
    '("C" . surround-change)
-   '("k" . surround-kill)
-   '("K" . surround-kill-outer)
+   '("K" . surround-kill)
    '("q" . save-buffers-kill-terminal))
   (meow-normal-define-key
    ;; '("C-f" . scroll-up-command)
@@ -108,7 +109,9 @@
    '("y" . meow-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
-   '("'" . repeat)
+   ;; '("'" . repeat)
+   '("'" . kmacro-start-macro-or-insert-counter)
+   '("\"" . meow-end-or-call-kmacro)
    '("<escape>" . ignore)
    ;; '("r" . replace-string)
    ;; '("R" . meow-replace)
@@ -191,50 +194,50 @@
   ;; ;; 绑定到插入模式的进入和退出钩子
   ;; (add-hook 'meow-insert-enter-hook 'my/meow-record-insert-start)
   ;; (add-hook 'meow-insert-exit-hook 'my/meow-select-inserted-text)
- 
+  
 
   ;; 定义变量来存储插入的文本范围
-(defvar my/meow-insert-start nil
-  "Store the start position of inserted text.")
-(defvar my/meow-insert-end nil
-  "Store the end position of inserted text.")
+  (defvar my/meow-insert-start nil
+    "Store the start position of inserted text.")
+  (defvar my/meow-insert-end nil
+    "Store the end position of inserted text.")
 
-;; 在文本插入时更新范围
-(defun my/meow-track-inserted-text (start end length)
-  "Track the range of inserted text."
-  (when (and (null my/meow-insert-start) ; 如果尚未记录起始位置
-             (> end start))               ; 如果有文本插入
-    (setq my/meow-insert-start start))
-  (when (and my/meow-insert-start
-             (> end start))               ; 忽略删除操作
-    (setq my/meow-insert-end end)))
+  ;; 在文本插入时更新范围
+  (defun my/meow-track-inserted-text (start end length)
+    "Track the range of inserted text."
+    (when (and (null my/meow-insert-start) ; 如果尚未记录起始位置
+               (> end start))               ; 如果有文本插入
+      (setq my/meow-insert-start start))
+    (when (and my/meow-insert-start
+               (> end start))               ; 忽略删除操作
+      (setq my/meow-insert-end end)))
 
-;; 进入插入模式时初始化
-(defun my/meow-record-insert-start ()
-  "Initialize tracking when entering insert mode."
-  (setq my/meow-insert-start (point) ; 记录插入模式的起始位置
-        my/meow-insert-end nil)
-  (add-hook 'after-change-functions 'my/meow-track-inserted-text nil t))
+  ;; 进入插入模式时初始化
+  (defun my/meow-record-insert-start ()
+    "Initialize tracking when entering insert mode."
+    (setq my/meow-insert-start (point) ; 记录插入模式的起始位置
+          my/meow-insert-end nil)
+    (add-hook 'after-change-functions 'my/meow-track-inserted-text nil t))
 
-;; 退出插入模式时选中插入的文本
-(defun my/meow-select-inserted-text ()
-  "Select the inserted text when exiting insert mode."
-  (remove-hook 'after-change-functions 'my/meow-track-inserted-text t)
-  (when (and my/meow-insert-start my/meow-insert-end)
-    ;; 确保选中范围包括所有插入的文本
-    (set-mark my/meow-insert-start)
-    (goto-char my/meow-insert-end)
-    (activate-mark)))
+  ;; 退出插入模式时选中插入的文本
+  (defun my/meow-select-inserted-text ()
+    "Select the inserted text when exiting insert mode."
+    (remove-hook 'after-change-functions 'my/meow-track-inserted-text t)
+    (when (and my/meow-insert-start my/meow-insert-end)
+      ;; 确保选中范围包括所有插入的文本
+      (set-mark my/meow-insert-start)
+      (goto-char my/meow-insert-end)
+      (activate-mark)))
 
-;; 绑定到插入模式的进入和退出钩子
-(add-hook 'meow-insert-enter-hook 'my/meow-record-insert-start)
-(add-hook 'meow-insert-exit-hook 'my/meow-select-inserted-text)
+  ;; 绑定到插入模式的进入和退出钩子
+  (add-hook 'meow-insert-enter-hook 'my/meow-record-insert-start)
+  (add-hook 'meow-insert-exit-hook 'my/meow-select-inserted-text)
 
-(let ((bounds (bounds-of-thing-at-point 'sexp)))
-  (when bounds
-    (set-mark (car bounds))
-    (goto-char (cdr bounds))
-    (activate-mark)))
+  (let ((bounds (bounds-of-thing-at-point 'sexp)))
+    (when bounds
+      (set-mark (car bounds))
+      (goto-char (cdr bounds))
+      (activate-mark)))
 
   ;; 自定义 d 键的行为
   (defun my/meow-delete ()
@@ -249,52 +252,52 @@
   (define-key meow-normal-state-keymap (kbd "d") 'my/meow-delete)
 
 
-;;   (defun my/meow-replace-char-or-region ()
-;;     "替换当前光标下的一个字符或选区内的所有字符。
-;; 按下 r 时，光标颜色变为橙色。"
-;;     (interactive)
-;;     ;; 保存当前光标颜色
-;;     (let ((original-cursor-color (face-attribute 'cursor :background)))
-;;       ;; 改变光标颜色为橙色
-;;       (set-face-attribute 'cursor nil :background "orange")
-;;       (if (use-region-p) ; 检查是否有选区
-;;           ;; 如果有选区，替换选区内的所有字符
-;;           (let ((text (read-string "替换为: ")))
-;;             (delete-region (region-beginning) (region-end))
-;;             (insert text))
-;;         ;; 如果没有选区，替换当前光标下的一个字符
-;;         (let ((char (read-char "替换为 (按 ESC 取消): ")))
-;;           (unless (eq char 27) ; 27 是 ESC 的 ASCII 码
-;;             (delete-char 1)
-;;             (insert char))))
-;;       ;; 恢复光标颜色
-;;       (set-face-attribute 'cursor nil :background original-cursor-color)))
+  ;;   (defun my/meow-replace-char-or-region ()
+  ;;     "替换当前光标下的一个字符或选区内的所有字符。
+  ;; 按下 r 时，光标颜色变为橙色。"
+  ;;     (interactive)
+  ;;     ;; 保存当前光标颜色
+  ;;     (let ((original-cursor-color (face-attribute 'cursor :background)))
+  ;;       ;; 改变光标颜色为橙色
+  ;;       (set-face-attribute 'cursor nil :background "orange")
+  ;;       (if (use-region-p) ; 检查是否有选区
+  ;;           ;; 如果有选区，替换选区内的所有字符
+  ;;           (let ((text (read-string "替换为: ")))
+  ;;             (delete-region (region-beginning) (region-end))
+  ;;             (insert text))
+  ;;         ;; 如果没有选区，替换当前光标下的一个字符
+  ;;         (let ((char (read-char "替换为 (按 ESC 取消): ")))
+  ;;           (unless (eq char 27) ; 27 是 ESC 的 ASCII 码
+  ;;             (delete-char 1)
+  ;;             (insert char))))
+  ;;       ;; 恢复光标颜色
+  ;;       (set-face-attribute 'cursor nil :background original-cursor-color)))
 
-;;   ;; 绑定 r 键到自定义函数
-;;   (define-key meow-normal-state-keymap (kbd "r") 'my/meow-replace-char-or-region)
-(defun my/meow-replace-char-or-region ()
-  "替换当前光标下的一个字符或选区内的所有字符。
+  ;;   ;; 绑定 r 键到自定义函数
+  ;;   (define-key meow-normal-state-keymap (kbd "r") 'my/meow-replace-char-or-region)
+  (defun my/meow-replace-char-or-region ()
+    "替换当前光标下的一个字符或选区内的所有字符。
 按下 r 时，光标颜色变为橙色。"
-  (interactive)
-  ;; 保存当前光标颜色
-  (let ((original-cursor-color (face-attribute 'cursor :background)))
-    ;; 改变光标颜色为橙色
-    (set-face-attribute 'cursor nil :background "orange")
-    (if (use-region-p) ; 检查是否有选区
-        ;; 如果有选区，替换选区内的所有字符
-        (let ((text (read-string "替换为: ")))
-          (delete-region (region-beginning) (region-end))
-          (insert text))
-      ;; 如果没有选区，替换当前光标下的一个字符
-      (let ((text (read-string "替换为 (按 ESC 取消): ")))
-        (unless (string-empty-p text) ; 检查输入是否为空
-          (delete-char 1) ; 删除当前字符
-          (insert text)))) ; 插入新字符
-    ;; 恢复光标颜色
-    (set-face-attribute 'cursor nil :background original-cursor-color)))
+    (interactive)
+    ;; 保存当前光标颜色
+    (let ((original-cursor-color (face-attribute 'cursor :background)))
+      ;; 改变光标颜色为橙色
+      (set-face-attribute 'cursor nil :background "orange")
+      (if (use-region-p) ; 检查是否有选区
+          ;; 如果有选区，替换选区内的所有字符
+          (let ((text (read-string "替换为: ")))
+            (delete-region (region-beginning) (region-end))
+            (insert text))
+	;; 如果没有选区，替换当前光标下的一个字符
+	(let ((text (read-string "替换为 (按 ESC 取消): ")))
+          (unless (string-empty-p text) ; 检查输入是否为空
+            (delete-char 1) ; 删除当前字符
+            (insert text)))) ; 插入新字符
+      ;; 恢复光标颜色
+      (set-face-attribute 'cursor nil :background original-cursor-color)))
 
-;; 绑定 r 键到自定义函数
-(define-key meow-normal-state-keymap (kbd "r") 'my/meow-replace-char-or-region)
+  ;; 绑定 r 键到自定义函数
+  (define-key meow-normal-state-keymap (kbd "r") 'my/meow-replace-char-or-region)
 
   (defun my/meow-delete-to-end-of-line-and-insert ()
     "删除当前光标到行尾的内容，并进入插入模式。"
@@ -331,14 +334,23 @@
   (define-key meow-normal-state-keymap (kbd "O") 'my/insert-line-above)
   (define-key meow-normal-state-keymap (kbd "o") 'my/insert-line-below)
 
-    ;; 自定义 I 键的行为
-  (defun my/move-to-beginning-and-insert ()
-    "将光标移动到行首并进入插入模式，取消选择区域。"
-    (interactive)
-    (beginning-of-line) ; 移动到行首
-    (deactivate-mark) ; 取消选择区域
-    (meow-insert-mode)) ; 进入插入模式
+  ;; 自定义 I 键的行为
+  ;; (defun my/move-to-beginning-and-insert ()
+  ;;   "将光标移动到行首并进入插入模式，取消选择区域。"
+  ;;   (interactive)
+  ;;   (beginning-of-line) ; 移动到行首
+  ;;   (deactivate-mark) ; 取消选择区域
+  ;;   (meow-insert-mode)) ; 进入插入模式
 
+(defun my/move-to-beginning-and-insert ()
+  "移动到行首第一个非空白字符后进入 meow 插入模式"
+  (interactive)
+  (back-to-indentation)    ; 核心：直接使用内置函数跳到缩进位置
+  (deactivate-mark)        ; 确保取消选区
+  (meow-insert))  ; 安全调用 meow 插入模式
+
+
+  
   ;; 自定义 A 键的行为
   (defun my/move-to-end-and-insert ()
     "将光标移动到行尾并进入插入模式，取消选择区域。"

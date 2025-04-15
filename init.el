@@ -22,8 +22,6 @@
 (blink-cursor-mode 0)
 
 (setq inhibit-startup-message t)
-(global-display-line-numbers-mode 1)
-
 ;(set-fringe-mode 10)        ; Give some breathing room
 ;(scroll-bar-mode -1)        ; Disable visible scrollbar
 ;(tool-bar-mode -1)
@@ -31,6 +29,7 @@
 (menu-bar-mode -1)
 (global-display-line-numbers-mode 1)
 (save-place-mode 1)
+(column-number-mode 1)
 
 ;; 命令历史 文件历史
 (setq recentf-max-saved-items 50) ;; 或者更大
@@ -38,7 +37,6 @@
 (savehist-mode 1)
 
 (setq inhibit-startup-message t)
-(global-display-line-numbers-mode 1)
 
 ;; Initialize package sources
 (require 'package)
@@ -70,7 +68,7 @@
 (load "~/.emacs.d/lisp/autosave.el")
 (load "~/.emacs.d/lisp/paren.el")
 (load "~/.emacs.d/lisp/ace-window.el")
-;; (load "~/.emacs.d/lisp/system.el")
+(load "~/.emacs.d/lisp/system.el")
 (load "~/.emacs.d/lisp/git.el")
 (load "~/.emacs.d/lisp/expreg.el")
 (load "~/.emacs.d/lisp/daemon.el")
@@ -78,6 +76,7 @@
 (load "~/.emacs.d/lisp/mouse.el")
 (load "~/.emacs.d/lisp/chinese.el")
 (load "~/.emacs.d/lisp/scratch.el")
+(load "~/.emacs.d/lisp/org.el")
 ;; (load "~/.emacs.d/lisp/jieba.el")
 
 ;; (load "~/.emacs.d/lisp/markdown.el")
