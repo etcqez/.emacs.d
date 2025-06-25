@@ -4,6 +4,7 @@
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
+   '("y" . meow-save)
    '("j" . meow-next)
    '("k" . meow-prev)
    '("l" . meow-right)
@@ -367,3 +368,4 @@ SPC" . (lambda () (interactive) (switch-to-buffer "*scratch*")))
       (exchange-point-and-mark)  ; 交换点和标记（可选）
       (exchange-point-and-mark)  ; 再次交换回到原位
       (message "已粘贴并选中内容"))))
+

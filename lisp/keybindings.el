@@ -10,7 +10,7 @@
 ;;   )
 (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)
 ;; (global-set-key (kbd "C-k") 'meow-kill)
-;; (global-set-key (kbd "M-w") 'meow-clipboard-save)
+(global-set-key (kbd "M-w") 'meow-clipboard-save)
 
 (add-hook 'dashboard-mode-hook
           (lambda ()
@@ -64,17 +64,52 @@
 ;;   (setq meow-selection-command-fallback 'region))
 
 ;; 最终优化版复制功能
+;; (defun my/safe-yank ()
+;;   "精确复制到 kill-ring 且不影响系统剪贴板，仅在整行复制时添加空行并定位"
+;;   (interactive)
+;;   (when (use-region-p)
+;;     (let* ((beg (region-beginning))
+;;            (end (region-end))
+;;            (is-whole-line (and (save-excursion (goto-char beg) (bolp))
+;;                               (save-excursion (goto-char end) (or (eolp) (eobp)))))
+;;            (text (buffer-substring-no-properties beg end))
+;;            (copied-text (if is-whole-line
+;;                             (concat text "\n")  ;; 仅在整行复制时添加换行符
+;;                           text))
+;;            ;; 完全禁用剪贴板交互
+;;            (select-enable-clipboard nil)
+;;            (interprogram-cut-function nil))
+      
+;;       ;; 安全复制到 kill-ring
+;;       (kill-new copied-text)
+;;       (deactivate-mark)
+      
+;;       ;; 仅在整行复制时移动光标
+;;       (when is-whole-line
+;;         (goto-char end)
+;;         (if (eobp)
+;;             (progn  ; 文件末尾处理
+;;               (end-of-line)
+;;               (newline)
+;;               (beginning-of-line))
+;;           (progn  ; 正常定位到下一行行首
+;;             (forward-line 1)
+;;             (beginning-of-line)))))))
+
 (defun my/safe-yank ()
-  "精确复制到 kill-ring 且不影响系统剪贴板，仅在整行复制时添加空行并定位"
+  "精确复制到 kill-ring 且不影响系统剪贴板，在整行复制时添加空行并定位"
   (interactive)
   (when (use-region-p)
     (let* ((beg (region-beginning))
            (end (region-end))
-           (is-whole-line (and (save-excursion (goto-char beg) (bolp))
-                              (save-excursion (goto-char end) (or (eolp) (eobp)))))
+           ;; 检查选区是否从行首开始
+           (beg-at-bol (save-excursion (goto-char beg) (bolp)))
+           ;; 检查选区是否在行尾结束
+           (end-at-eol (save-excursion (goto-char end) (or (eolp) (eobp))))
            (text (buffer-substring-no-properties beg end))
-           (copied-text (if is-whole-line
-                            (concat text "\n")  ;; 仅在整行复制时添加换行符
+           ;; 仅在选区是整行时添加换行符
+           (copied-text (if (and beg-at-bol end-at-eol)
+                            (concat text "\n")
                           text))
            ;; 完全禁用剪贴板交互
            (select-enable-clipboard nil)
@@ -85,16 +120,19 @@
       (deactivate-mark)
       
       ;; 仅在整行复制时移动光标
-      (when is-whole-line
+      (when (and beg-at-bol end-at-eol)
         (goto-char end)
-        (if (eobp)
-            (progn  ; 文件末尾处理
-              (end-of-line)
-              (newline)
-              (beginning-of-line))
-          (progn  ; 正常定位到下一行行首
-            (forward-line 1)
-            (beginning-of-line)))))))
+        (cond
+         ;; 处理文件末尾情况
+         ((eobp)
+          (end-of-line)
+          (unless (bolp) (newline))  ; 只在没有换行符时添加
+          (beginning-of-line))
+         
+         ;; 正常情况：移动到下一行行首
+         (t
+          (forward-line 1)
+          (beginning-of-line)))))))
 
 ;; 独立复制到系统剪贴板（不添加空行）
 (defun my/safe-copy-to-clipboard ()
@@ -110,6 +148,6 @@
 (with-eval-after-load 'meow
   (meow-normal-define-key
    '("y" . my/safe-yank)           ; 只操作 kill-ring
-   '("M-w" . meow-clipboard-save) ; 只操作系统剪贴板
+   ;; '("M-w" . meow-clipboard-save) ; 只操作系统剪贴板
    ;; '("M-w" . my/safe-copy-to-clipboard) ; 只操作系统剪贴板
    ))
