@@ -5,5 +5,6 @@
 (use-package vundo
   :config
   (with-eval-after-load 'meow
-    (meow-leader-define-key
-     '("u" . vundo))))
+    ;; (meow-leader-define-key
+    ;;  '("u" . vundo))
+    ))

@@ -8,6 +8,9 @@
 ;;   (select-frame-set-input-focus (selected-frame))
 ;;   (find-file file))
 
+;; 完全禁用备份文件
+(setq make-backup-files nil)
+
 ;; (add-hook 'window-setup-hook 'my/raise-frame);; scrolloff
 (setq scroll-step 1)
 (setq scroll-margin 5)
@@ -76,7 +79,7 @@
 (load "~/.emacs.d/lisp/mouse.el")
 (load "~/.emacs.d/lisp/chinese.el")
 (load "~/.emacs.d/lisp/scratch.el")
-(load "~/.emacs.d/lisp/org.el")
+(load "~/.emacs.d/lisp/clipboard.el")
 ;; (load "~/.emacs.d/lisp/jieba.el")
 
 ;; (load "~/.emacs.d/lisp/markdown.el")
