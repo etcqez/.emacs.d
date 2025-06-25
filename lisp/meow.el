@@ -8,6 +8,11 @@
    '("k" . meow-prev)
    '("l" . meow-right)
    '("h" . meow-left)
+   '("H" . meow-left-expand)
+   '("I" . meow-open-above)
+   '("J" . meow-next-expand)
+   '("K" . meow-prev-expand)
+   '("L" . meow-right-expand)
    '("w" . meow-next-word)
    '("e" . meow-mark-word)
    '("b" . meow-back-word)
@@ -312,28 +317,53 @@ SPC" . (lambda () (interactive) (switch-to-buffer "*scratch*")))
   (my-meow-change)
   )
 
+;; (defun my-yank-and-select ()
+;;   "粘贴内容并激活选中区域"
+;;   (interactive)
+;;   (let ((start (point)))  ; 记录粘贴前的位置
+;;     (yank)  ; 执行粘贴
+;;     (let ((end (point)))  ; 记录粘贴后的位置
+    
+;;     ;; 详细调试信息
+;;     (message "粘贴前位置: %d" start)
+;;     (message "粘贴后位置: %d" (point))
+;;     (message "原始标记位置: %s" (mark t))
+;;     (message "原始标记激活状态: %s" mark-active)
+    
+;;     ;; 直接操作标记系统
+;;     (setq deactivate-mark nil)  ; 防止标记被取消
+;;     (set-mark start)  ; 设置标记位置
+;;     (setq mark-active t)  ; 强制激活标记
+    
+;;     ;; 交换点和标记
+;;     (exchange-point-and-mark)
+;;     (exchange-point-and-mark)
+    
+;;     ;; 强制重绘显示
+;;     (redisplay)
+;;     (message "已粘贴并选中内容"))))
+
 (defun my-yank-and-select ()
-  "粘贴内容并激活选中区域"
+  "粘贴内容并激活选中区域。如果有活动选区，则替换选区内容。"
   (interactive)
-  (let ((start (point)))  ; 记录粘贴前的位置
-    (yank)  ; 执行粘贴
-    (let ((end (point)))  ; 记录粘贴后的位置
+  (if (use-region-p)  ; 检查是否有活动选区
+      ;; 情况1: 有活动选区时替换内容
+      (let ((start (region-beginning))
+            (end (region-end)))
+        (delete-region start end)  ; 删除选区内容
+        (yank)  ; 粘贴新内容
+        (set-mark start)  ; 设置标记到原始开始位置
+        (goto-char (point))  ; 移动到粘贴结束位置
+        (setq deactivate-mark nil)  ; 防止取消选区
+        (setq mark-active t)  ; 激活选区
+        (message "已替换选区内容并选中"))
     
-    ;; 详细调试信息
-    (message "粘贴前位置: %d" start)
-    (message "粘贴后位置: %d" (point))
-    (message "原始标记位置: %s" (mark t))
-    (message "原始标记激活状态: %s" mark-active)
-    
-    ;; 直接操作标记系统
-    (setq deactivate-mark nil)  ; 防止标记被取消
-    (set-mark start)  ; 设置标记位置
-    (setq mark-active t)  ; 强制激活标记
-    
-    ;; 交换点和标记
-    (exchange-point-and-mark)
-    (exchange-point-and-mark)
-    
-    ;; 强制重绘显示
-    (redisplay)
-    (message "已粘贴并选中内容"))))
+    ;; 情况2: 没有活动选区时粘贴并选中
+    (let ((start (point)))  ; 记录粘贴前的位置
+      (yank)  ; 执行粘贴
+      (set-mark start)  ; 设置标记到粘贴开始位置
+      (setq deactivate-mark nil)  ; 防止取消选区
+      (setq mark-active t)  ; 激活选区
+      (exchange-point-and-mark)  ; 交换点和标记（可选）
+      (exchange-point-and-mark)  ; 再次交换回到原位
+      (message "已粘贴并选中内容"))))
