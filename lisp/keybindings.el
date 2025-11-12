@@ -1,4 +1,4 @@
-(define-key meow-insert-state-keymap (kbd "C-x C-f") 'company-files)
+;; (define-key meow-insert-state-keymap (kbd "C-x C-f") 'company-files)
 (define-key meow-insert-state-keymap (kbd "C-g") 'meow-insert-exit)
 
 ;; (define-key meow-normal-state-keymap (kbd "C-f") 'scroll-up-command)
@@ -151,3 +151,29 @@
    ;; '("M-w" . meow-clipboard-save) ; 只操作系统剪贴板
    ;; '("M-w" . my/safe-copy-to-clipboard) ; 只操作系统剪贴板
    ))
+
+(defun kill-to-beginning-of-line ()
+  "删除从光标到行首的内容"
+  (interactive)
+  (kill-region (point) (line-beginning-position)))
+
+;; 绑定快捷键
+(global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
+
+(defun avy-select-between-lines ()
+  "使用 avy 快速选择两个行号之间的内容"
+  (interactive)
+  (let (start-line end-line)
+    ;; 选择起始行
+    (setq start-line (line-number-at-pos (avy-goto-line)))
+    ;; 选择结束行  
+    (setq end-line (line-number-at-pos (avy-goto-line)))
+    ;; 选中区域
+    (goto-line (min start-line end-line))
+    (set-mark (point))
+    (goto-line (max start-line end-line))
+    (end-of-line)
+    (exchange-point-and-mark)))
+
+;; 绑定快捷键
+(global-set-key (kbd "C-c S") 'avy-select-between-lines)

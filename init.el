@@ -8,9 +8,6 @@
 ;;   (select-frame-set-input-focus (selected-frame))
 ;;   (find-file file))
 
-;; 完全禁用备份文件
-(setq make-backup-files nil)
-
 ;; (add-hook 'window-setup-hook 'my/raise-frame);; scrolloff
 (setq scroll-step 1)
 (setq scroll-margin 5)
@@ -54,11 +51,18 @@
 (require 'use-package)'
 (setq use-package-always-ensure t)
 
+;; (load "~/.emacs.d/lisp/meow2.el")
+(load "~/.emacs.d/lisp/meow.el")
+(load "~/.emacs.d/lisp/meow_customize.el")
 (load "~/.emacs.d/lisp/undo.el")
 (load "~/.emacs.d/lisp/dashboard.el")
-(load "~/.emacs.d/lisp/meow.el")
 (load "~/.emacs.d/lisp/theme.el")
 (load "~/.emacs.d/lisp/color.el")
+;; (load "~/.emacs.d/lisp/cnfont.el")
+
+;; mac
+(when (eq system-type 'darwin)
+  (load "~/.emacs.d/lisp/mac.el"))
 
 (load "~/.emacs.d/lisp/avy.el")
 (load "~/.emacs.d/lisp/vertico.el")
@@ -68,7 +72,6 @@
 (load "~/.emacs.d/lisp/keybindings.el")
 (load "~/.emacs.d/lisp/neotree.el")
 (load "~/.emacs.d/lisp/isearch.el")
-(load "~/.emacs.d/lisp/autosave.el")
 (load "~/.emacs.d/lisp/paren.el")
 (load "~/.emacs.d/lisp/ace-window.el")
 (load "~/.emacs.d/lisp/system.el")
@@ -80,8 +83,12 @@
 (load "~/.emacs.d/lisp/chinese.el")
 (load "~/.emacs.d/lisp/scratch.el")
 (load "~/.emacs.d/lisp/clipboard.el")
-;; (load "~/.emacs.d/lisp/jieba.el")
+(load "~/.emacs.d/lisp/org-roam.el")
+(load "~/.emacs.d/lisp/xml.el")
+(load "~/.emacs.d/lisp/outline.el")
 
+
+;; (load "~/.emacs.d/lisp/jieba.el")
 ;; (load "~/.emacs.d/lisp/markdown.el")
 
 (setopt use-short-answers t)
@@ -105,3 +112,40 @@
 
 ;; 当前帧打开文件
 ;(setq ns-pop-up-frames nil)
+
+(unless (boundp 'image-scaling-factor)
+  (defvar image-scaling-factor 1.0
+    "缩放因子用于图像显示。Emacs 27.1 之前版本兼容备用。"))
+
+;; 确保自动保存目录存在
+(let ((auto-save-dir "~/.emacs.d/auto-saves/"))
+  (unless (file-exists-p auto-save-dir)
+    (make-directory auto-save-dir t)))
+
+;; 设置自动保存文件位置
+(setq auto-save-file-name-transforms
+      `((".*" ,(expand-file-name "~/.emacs.d/auto-saves/") t)))
+
+;; 设置锁文件位置（与自动保存文件在同一目录）
+(setq lock-file-name-transforms
+      `((".*" ,(expand-file-name "~/.emacs.d/auto-saves/") t)))
+
+;; font
+;; English font
+(set-face-attribute 'default nil
+  :font "FiraCode Nerd Font"
+  ;; :style "Regular"
+  :height 130)
+
+;; Enable ligatures (Emacs 28+)
+(use-package ligature
+  :ensure t
+  :config
+  (ligature-set-ligatures 't '("www" "->" "=>" "::" ":=" "<=" ">=" "!=" "===" "!=="))
+  (global-ligature-mode t))
+
+
+;; (setq mode-line-format
+;;       (list
+;;        '(:eval (list (nyan-create)))
+;;        ))

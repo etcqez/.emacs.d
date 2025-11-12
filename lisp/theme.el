@@ -1,5 +1,4 @@
 (use-package nerd-icons)
-(use-package all-the-icons)
 (use-package nerd-icons-completion
   :hook (after-init . nerd-icons-completion-mode))
 (use-package nerd-icons-dired
@@ -15,20 +14,29 @@
 ;;   :config
 ;;   )
 
+
+
 (use-package nyan-mode
   :init
-  (setq nyan-bar-length 24)
+  (setq nyan-bar-length 20)
+  (setq nyan-minimum-window-width 0)
   (nyan-mode +1))
 
 ;; (use-package catppuccin-theme
 ;;   :ensure t
 ;;   :config
-;;       ;; (load-theme 'catppuccin :no-confirm)
-;;       ;; (load-theme 'airline-doom-one t)
+;;       (load-theme 'catppuccin :no-confirm)
+;;       (load-theme 'airline-doom-one t)
 ;;       )
+
 
 (use-package doom-modeline
   :ensure t
+  :config
+  (setq doom-modeline-percent-position nil)
+  (setq doom-modeline-buffer-encoding nil)
+  (setq doom-modeline-window-width-limit nil)
+
   :init (doom-modeline-mode 1))
 (use-package doom-themes
   :ensure t
