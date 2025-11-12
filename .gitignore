@@ -1,25 +1,13 @@
-custom.el
-elpa
-quelpa
-history
-places
-recentf
-undo
-undo-fu-session
-session.*
-auto-save-list/
-auto-saves/
-cnfonts/
-eln-cache/
-# 忽略 Emacs 备份文件
-*~
-# 忽略 Emacs 自动保存文件
-.#*
-# 忽略 Emacs 中的垃圾文件
-*#
-.cache
-transient
-desktop/
-bookmarks
-.org-id-locations
-org-roam.db
+# 忽略所有文件，除了我们显式指定的
+*
+
+# 然后，使用 ! 来排除（即不忽略）我们想要跟踪的文件
+
+# 不忽略核心配置文件
+!/.emacs.d/init.el
+!/.emacs.d/early-init.el
+!/.emacs.d/README.org  # 如果有自述文件的话
+
+# 不忽略 lisp 目录及其下的所有 .el 文件
+!/.emacs.d/lisp/
+!/.emacs.d/lisp/*.el
