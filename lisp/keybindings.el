@@ -1,5 +1,17 @@
 ;; (define-key meow-insert-state-keymap (kbd "C-x C-f") 'company-files)
 (define-key meow-insert-state-keymap (kbd "C-g") 'meow-insert-exit)
+(global-set-key (kbd "<backspace>")
+                (lambda ()
+                  (interactive)
+                  (if (region-active-p)
+                      (delete-active-region)
+                    (backward-delete-char 1))))
+
+(defun delete-active-region ()
+  "删除激活的选区。"
+  (interactive)
+  (when (region-active-p)
+    (delete-region (region-beginning) (region-end))))
 
 ;; (define-key meow-normal-state-keymap (kbd "C-f") 'scroll-up-command)
 ;; (define-key meow-normal-state-keymap (kbd "C-b") 'scroll-down-command)

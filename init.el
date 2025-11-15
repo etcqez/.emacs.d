@@ -28,6 +28,7 @@
 (tooltip-mode -1)
 (menu-bar-mode -1)
 (global-display-line-numbers-mode 1)
+(setq line-spacing 0.4)
 (save-place-mode 1)
 (column-number-mode 1)
 
@@ -81,11 +82,14 @@
 (load "~/.emacs.d/lisp/indent.el")
 (load "~/.emacs.d/lisp/mouse.el")
 (load "~/.emacs.d/lisp/chinese.el")
-(load "~/.emacs.d/lisp/scratch.el")
+;; (load "~/.emacs.d/lisp/scratch.el")
 (load "~/.emacs.d/lisp/clipboard.el")
 (load "~/.emacs.d/lisp/org-roam.el")
+(load "~/.emacs.d/lisp/org.el")
 (load "~/.emacs.d/lisp/xml.el")
 (load "~/.emacs.d/lisp/outline.el")
+(load "~/.emacs.d/lisp/projectile.el")
+(load "~/.emacs.d/lisp/expand-region.el")
 
 
 ;; (load "~/.emacs.d/lisp/jieba.el")
@@ -149,3 +153,5 @@
 ;;       (list
 ;;        '(:eval (list (nyan-create)))
 ;;        ))
+
+

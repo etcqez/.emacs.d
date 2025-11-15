@@ -1,13 +1,10 @@
-# 忽略所有文件，除了我们显式指定的
 *
+!.gitignore
+!.gitignore.bak
 
-# 然后，使用 ! 来排除（即不忽略）我们想要跟踪的文件
-
-# 不忽略核心配置文件
 !/.emacs.d/init.el
 !/.emacs.d/early-init.el
-!/.emacs.d/README.org  # 如果有自述文件的话
+!.emacs.d/.gitignore.bak
 
-# 不忽略 lisp 目录及其下的所有 .el 文件
 !/.emacs.d/lisp/
 !/.emacs.d/lisp/*.el

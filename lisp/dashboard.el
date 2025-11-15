@@ -15,7 +15,15 @@
   ;; (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
   ;; 设置启动页内容
-  (setq dashboard-items '((recents . 50)))
+  (setq dashboard-items '((recents . 50)
+			  (projects . 5)
+			  (bookmarks . 5)
+			  ))
+  (setq dashboard-item-shortcuts '((recents   . "r")
+                                   (bookmarks . "m")
+                                   (projects  . "p")
+                                   (agenda    . "a")
+                                   (registers . "e")))
   ;; (setq dashboard-show-recent-files t)
   ;; (setq dashboard-show-bookmarks t)
   ;; (setq dashboard-show-projects t)
