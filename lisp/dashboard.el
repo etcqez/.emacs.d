@@ -11,7 +11,7 @@
   (setq dashboard-heading-shorcut-format " [%s]")
   (setq dashboard-display-icons-p t)     ; display icons on both GUI and terminal
   (setq dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
-  ;; 守护进程
+    ;; 守护进程
   ;; (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
   ;; 设置启动页内容

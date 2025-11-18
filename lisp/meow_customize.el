@@ -61,7 +61,7 @@
   (my-meow-change)
   )
 (define-key meow-normal-state-keymap (kbd "i") 'my-meow-change)
-(define-key meow-normal-state-keymap (kbd "a") 'my-meow-change)
+(define-key meow-normal-state-keymap (kbd "a") 'my-meow-append)
 
 
 ;; 自定义 o 键的行为
