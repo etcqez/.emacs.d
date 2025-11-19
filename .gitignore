@@ -13,6 +13,6 @@
 !/.emacs.d/early-init.el
 
 # allow lisp directory
-.emacs.d/lisp/
-.emacs.d/lisp/**
+!/.emacs.d/lisp/
+!/.emacs.d/lisp/**
 
