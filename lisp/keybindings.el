@@ -172,20 +172,20 @@
 ;; 绑定快捷键
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
 
-(defun avy-select-between-lines ()
-  "使用 avy 快速选择两个行号之间的内容"
-  (interactive)
-  (let (start-line end-line)
-    ;; 选择起始行
-    (setq start-line (line-number-at-pos (avy-goto-line)))
-    ;; 选择结束行  
-    (setq end-line (line-number-at-pos (avy-goto-line)))
-    ;; 选中区域
-    (goto-line (min start-line end-line))
-    (set-mark (point))
-    (goto-line (max start-line end-line))
-    (end-of-line)
-    (exchange-point-and-mark)))
+;; (defun avy-select-between-lines ()
+;;   "使用 avy 快速选择两个行号之间的内容"
+;;   (interactive)
+;;   (let (start-line end-line)
+;;     ;; 选择起始行
+;;     (setq start-line (line-number-at-pos (avy-goto-line)))
+;;     ;; 选择结束行  
+;;     (setq end-line (line-number-at-pos (avy-goto-line)))
+;;     ;; 选中区域
+;;     (goto-line (min start-line end-line))
+;;     (set-mark (point))
+;;     (goto-line (max start-line end-line))
+;;     (end-of-line)
+;;     (exchange-point-and-mark)))
 
-;; 绑定快捷键
-(global-set-key (kbd "C-c S") 'avy-select-between-lines)
+;; ;; 绑定快捷键
+;; (global-set-key (kbd "C-c S") 'avy-select-between-lines)

@@ -17,6 +17,7 @@
 (ignore-errors
   
   (load "~/.emacs.d/lisp/basic.el")
+  (load "~/.emacs.d/lisp/smartparens.el")
   (load "~/.emacs.d/lisp/avy.el")
   (load "~/.emacs.d/lisp/buffer.el")
   (load "~/.emacs.d/lisp/ace-window.el")
@@ -24,6 +25,7 @@
   (load "~/.emacs.d/lisp/font.el")
   (load "~/.emacs.d/lisp/dashboard.el")
   (load "~/.emacs.d/lisp/icon.el")
+  (load "~/.emacs.d/lisp/surround.el")
 
   (load "~/.emacs.d/lisp/meow.el")
   (load "~/.emacs.d/lisp/meow_customize.el")
@@ -39,26 +41,34 @@
   (load "~/.emacs.d/lisp/mouse.el")
   (load "~/.emacs.d/lisp/chinese.el")
   (load "~/.emacs.d/lisp/clipboard.el")
-  (load "~/.emacs.d/lisp/org-roam.el")
+  ;; (load "~/.emacs.d/lisp/org-roam.el")
   (load "~/.emacs.d/lisp/org.el")
-  (load "~/.emacs.d/lisp/projectile.el")
   (load "~/.emacs.d/lisp/expand-region.el")
 
-  (load "~/.emacs.d/lisp/outline.el")
+  ;; (load "~/.emacs.d/lisp/projectile.el")
+  ;; (load "~/.emacs.d/lisp/outline.el")
   ;; (load "~/.emacs.d/lisp/daemon.el")
   ;; (load "~/.emacs.d/lisp/isearch.el")
   ;; (load "~/.emacs.d/lisp/xml.el")
   
   )
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-fold-catch-invisible-edits 'show-and-error nil nil "Customized with use-package org-modern")
  '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(avy-background-face ((t (:background unspecified :foreground "gray60"))))
+ '(avy-goto-char-timer-face ((t (:foreground "skyblue" :background unspecified))))
+ '(avy-lead-face ((t (:foreground "red" :background unspecified))))
+ '(avy-lead-face-0 ((t (:foreground "red" :background unspecified))))
+ '(avy-lead-face-1 ((t (:foreground "red" :background unspecified))))
+ '(avy-lead-face-2 ((t (:foreground "red" :background unspecified)))))

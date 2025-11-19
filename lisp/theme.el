@@ -38,6 +38,4 @@
 ;; (use-package catppuccin-theme
 ;;   :ensure t
 ;;   :config
-;;       (load-theme 'catppuccin :no-confirm)
-;;       (load-theme 'airline-doom-one t)
-;;       )
+;;       (load-theme 'catppuccin :no-confirm))

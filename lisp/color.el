@@ -7,7 +7,7 @@
   (set-face-attribute 'lazy-highlight nil :foreground "black" :background "green")
   (set-face-attribute 'isearch nil :foreground "black" :background "deeppink")
   ;; 括号颜色
-  (set-face-attribute 'show-paren-match nil :foreground "DeepPink" :background "#00000000")
+  ;; (set-face-attribute 'show-paren-match nil :foreground "DeepPink" :background "#00000000")
   ;; ;; vertico
   ;; (set-face-attribute 'vertico-current nil :foreground "black" :background "DarkSeaGreen3")
   ;; ;; marginalia
@@ -28,3 +28,4 @@
 
 (global-font-lock-mode t)
 (setq font-lock-maximum-decoration t)
+
