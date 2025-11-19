@@ -1,21 +1,18 @@
-# 忽略所有文件
+# ignore all
 *
 
-# 允许 .gitignore 本身
+# allow gitignore
 !.gitignore
-!.gitignore.bak
 
-# 允许 .emacs.d 目录本身
+# allow .emacs.d directory
 !.emacs.d/
 !/.emacs.d/**/
 
-# 允许指定文件
+# allow specific files
 !/.emacs.d/init.el
 !/.emacs.d/early-init.el
-!/.emacs.d/.gitignore.bak
 
-# 允许 lisp 目录及其所有子文件
+# allow lisp directory
 !/.emacs.d/lisp/
 !/.emacs.d/lisp/**
-
 
