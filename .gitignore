@@ -1,10 +1,21 @@
-# 首先忽略所有文件
+# 忽略所有文件
 *
 
-# 然后取消忽略我们想要跟踪的文件和目录
-!/.gitignore
-!/.emacs.d/
+# 允许 .gitignore 本身
+!.gitignore
+!.gitignore.bak
+
+# 允许 .emacs.d 目录本身
+!.emacs.d/
+!/.emacs.d/**/
+
+# 允许指定文件
 !/.emacs.d/init.el
 !/.emacs.d/early-init.el
+!/.emacs.d/.gitignore.bak
+
+# 允许 lisp 目录及其所有子文件
 !/.emacs.d/lisp/
-!/.emacs.d/lisp/**/*
+!/.emacs.d/lisp/**
+
+
