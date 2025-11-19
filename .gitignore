@@ -7,4 +7,3 @@
 !.emacs.d/.gitignore.bak
 
 !/.emacs.d/lisp/
-#!/.emacs.d/lisp/*.el
