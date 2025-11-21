@@ -44,4 +44,3 @@
 ;; 让 CJK 继承 fixed-pitch
 (setq face-font-rescale-alist
       '(("Sarasa Mono SC" . 0.95)))  ;; 12/13 ≈ 0.92
-

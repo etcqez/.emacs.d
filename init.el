@@ -60,7 +60,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-fold-catch-invisible-edits 'show-and-error nil nil "Customized with use-package org-modern")
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(ace-window airline-themes cape catppuccin-theme cnfonts company
+		corfu dashboard doom-modeline doom-themes
+		embark-consult exec-path-from-shell expand-region
+		expreg format-all git-gutter goto-last-change
+		highlight-parentheses indent-guide ligature marginalia
+		meow neotree nerd-icons-completion nerd-icons-dired
+		nyan-mode orderless org-bullets org-modern org-roam
+		page-break-lines projectile rainbow-delimiters
+		smartparens surround undo-fu undo-fu-session valign
+		vertico vundo yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
