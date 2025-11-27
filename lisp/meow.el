@@ -97,7 +97,7 @@
    '("'" . repeat)
    ;; '("'" . kmacro-start-macro-or-insert-counter)
    '("\"" . meow-end-or-call-kmacro)
-   '("<escape>" . ignore)
+   '("<escape>" . meow-normal-mode)
    ;; '("r" . replace-string)
    ;; '("R" . meow-replace)
    ;; '("r" . ((lambda ()
