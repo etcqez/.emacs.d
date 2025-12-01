@@ -1,5 +1,6 @@
 ;; (define-key meow-insert-state-keymap (kbd "C-x C-f") 'company-files)
 (define-key meow-insert-state-keymap (kbd "C-g") 'meow-insert-exit)
+(define-key meow-insert-state-keymap (kbd "<escape>") 'meow-normal-mode)
 (global-set-key (kbd "<backspace>")
                 (lambda ()
                   (interactive)

@@ -1,4 +1,5 @@
 (add-to-list 'warning-suppress-types '(files))
+(setq confirm-kill-emacs 'y-or-n-p)
 (require 'package)
 (setq package-archives '(("gnu" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
                          ("org" . "https://orgmode.org/elpa/")
@@ -55,8 +56,20 @@
   
   )
 
+(setq ns-pop-up-frames nil)
+
 ;; 解决forfu报错
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(avy-background-face ((t (:background unspecified :foreground "gray60"))))
+ '(avy-goto-char-timer-face ((t (:foreground "skyblue" :background unspecified))))
+ '(avy-lead-face ((t (:foreground "red" :background unspecified))))
+ '(avy-lead-face-0 ((t (:foreground "red" :background unspecified))))
+ '(avy-lead-face-1 ((t (:foreground "red" :background unspecified))))
+ '(avy-lead-face-2 ((t (:foreground "red" :background unspecified))))
  '(gnus-group-news-low ((t nil)))
  '(gnus-group-news-low-empty ((t nil))))
 
@@ -89,3 +102,14 @@
 ;;  '(avy-lead-face-0 ((t (:foreground "red" :background unspecified))))
 ;;  '(avy-lead-face-1 ((t (:foreground "red" :background unspecified))))
 ;;  '(avy-lead-face-2 ((t (:foreground "red" :background unspecified)))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(ace-window cape consult corfu dashboard doom-modeline doom-themes
+		expand-region expreg git-gutter indent-bars ligature
+		meow neotree nyan-mode orderless rainbow-delimiters
+		smartparens surround undo-fu undo-fu-session valign
+		vertico vundo)))

@@ -45,4 +45,32 @@
         completion-category-defaults nil
         completion-category-overrides nil))
 
-
+;; 完整的 consult 配置
+(use-package consult
+  :ensure t
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+  :init
+  ;; 用 consult 替换标准绑定
+  (global-set-key [remap switch-to-buffer] #'consult-buffer)
+  (global-set-key [remap switch-to-buffer-other-window] #'consult-buffer-other-window)
+  (global-set-key [remap switch-to-buffer-other-frame] #'consult-buffer-other-frame)
+  (global-set-key [remap goto-line] #'consult-goto-line)
+  (global-set-key [remap imenu] #'consult-imenu)
+  (global-set-key [remap yank-pop] #'consult-yank-pop)
+  (global-set-key [remap bookmark-jump] #'consult-bookmark)
+  (global-set-key [remap recentf-open] #'consult-recent-file)
+  
+  :config
+  ;; 项目根目录检测
+  (setq consult-project-root-function
+        (lambda ()
+          (when-let (project (project-current))
+            (project-root project))))
+  
+  ;; 自定义缓冲区源顺序
+  (consult-customize consult--source-buffer :hidden t :default nil)
+  (consult-customize consult--source-project-buffer :hidden t :default nil)
+  
+  ;; 自定义预览行为
+  (setq consult-preview-excluded-files
+        (regexp-opt '(".git/" ".hg/" ".svn/" "build/" "target/" "node_modules/"))))
