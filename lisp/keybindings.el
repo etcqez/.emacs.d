@@ -23,7 +23,8 @@
 ;;   )
 (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)
 ;; (global-set-key (kbd "C-k") 'meow-kill)
-(global-set-key (kbd "M-w") 'meow-clipboard-save)
+(global-set-key (kbd "C-w") 'meow-clipboard-save)(global-set-key (kbd "C-w") 'meow-clipboard-save)
+(global-set-key (kbd "C-y") 'clipboard-yank)
 
 (add-hook 'dashboard-mode-hook
           (lambda ()

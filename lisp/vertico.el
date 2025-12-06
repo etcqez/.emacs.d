@@ -67,9 +67,9 @@
           (when-let (project (project-current))
             (project-root project))))
   
-  ;; 自定义缓冲区源顺序
-  (consult-customize consult--source-buffer :hidden t :default nil)
-  (consult-customize consult--source-project-buffer :hidden t :default nil)
+  ;; ;; 自定义缓冲区源顺序
+  ;; (consult-customize consult--source-buffer :hidden t :default nil)
+  ;; (consult-customize consult--source-project-buffer :hidden t :default nil)
   
   ;; 自定义预览行为
   (setq consult-preview-excluded-files

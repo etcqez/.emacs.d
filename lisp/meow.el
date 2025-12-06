@@ -15,6 +15,9 @@
    '("w" . meow-next-word)
    '("e" . meow-mark-word)
    '("b" . meow-back-word)
+   '("g" . meow-cancel-selection)
+   '("x" . meow-line)
+   '("y" . meow-save)
    '("<escape>" . ignore))
   
   (meow-normal-define-key
@@ -116,11 +119,11 @@
    '("j" . "H-j")
    '("k" . "H-k")
    ;; Use SPC (0-9) for digit arguments.
-   ;; '("0" . delete-window)
-   ;; '("1" . delete-other-windows)
-   ;; '("2" . split-window-below)
-   ;; '("3" . split-window-right)
-   ;; '("4" . switch-to-buffer-other-frame)
+   '("0" . delete-window)
+   '("1" . delete-other-windows)
+   '("2" . split-window-below)
+   '("3" . split-window-right)
+   '("4" . switch-to-buffer-other-frame)
    '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet)
    ;; '("b" . consult-buffer)

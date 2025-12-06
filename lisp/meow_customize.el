@@ -1,10 +1,16 @@
+(require 'meow)
 ;; 自定义 d 键的行为
 (defun my/meow-delete ()
-  "如果有选区，删除选区内容；否则删除当前光标下的一个字符。"
+  "如果有选区，直接删除（不进剪贴板）；否则删除光标后一个字符（不进剪贴板）。"
   (interactive)
-  (if (use-region-p) ; 检查是否有选区
-      (meow-kill)    ; 删除选区内容
-    (delete-char 1))) ; 仅删除一个字符
+  (if (use-region-p)
+      ;; 1. 如果有选区：使用 delete-region (纯删除)
+      (kill-region (region-beginning) (region-end))
+    ;; 2. 如果无选区：使用 delete-char 1 (纯删除，KILLFLAG 默认为 nil)
+    (delete-char 1)))
+
+(define-key meow-normal-state-keymap (kbd "d") 'my/meow-delete)
+
 ;; 绑定 d 键到自定义函数
 (define-key meow-normal-state-keymap (kbd "d") 'my/meow-delete)
 
