@@ -13,3 +13,9 @@
 (advice-add 'kill-line :around #'my/disable-clipboard-for-kill)
 (advice-add 'backward-kill-word :around #'my/disable-clipboard-for-kill)
 (advice-add 'kill-region :around #'my/disable-clipboard-for-kill) ; 所有剪切操作
+
+(use-package xclip
+  :ensure t
+  :config
+  (xclip-mode 1))
+
