@@ -18,9 +18,11 @@
 ;; ============================================================
 ;; 2. 字体列表定义 (保持你的原样)
 ;; ============================================================
-(defvar my-en-font-list '("JetBrainsMono Nerd Font Mono"
+(defvar my-en-font-list '("JetBrains Mono"
+			  "JetBrainsMono Nerd Font Mono"
                           "JetBrainsMono NFM"
                           "JetBrainsMono Nerd Font"
+
                           "Monospace"))
 
 (defvar my-cn-font-list '("Sarasa Term SC" 
@@ -45,12 +47,12 @@
       ;; 设置英文 (120 = 12pt)
       (set-face-attribute 'default nil
                           :font current-en-font
-                          :height 120)
+                          :height 110)
 
       ;; 设置 fixed-pitch
       (set-face-attribute 'fixed-pitch nil
                           :font current-en-font
-                          :height 120)
+                          :height 110)
 
       ;; 设置中文映射
       (dolist (charset '(kana han cjk-misc bopomofo symbol))

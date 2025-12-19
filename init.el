@@ -16,6 +16,9 @@
 (when (eq system-type 'darwin)
   (load "~/.emacs.d/lisp/mac.el"))
 
+;; 图形界面
+(when (display-graphic-p)
+  (load "~/.emacs.d/graphic.el"))
 
 (load "~/.emacs.d/lisp/basic.el")
 (load "~/.emacs.d/lisp/meow.el")
@@ -71,38 +74,75 @@
  '(gnus-group-news-low ((t nil)))
  '(gnus-group-news-low-empty ((t nil))))
 
-;; (custom-set-variables
-;;  ;; custom-set-variables was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(org-fold-catch-invisible-edits 'show-and-error nil nil "Customized with use-package org-modern")
-;;  '(package-selected-packages
-;;    '(a68-mode ace-window airline-themes cape catppuccin-theme cnfonts
-;; 	      company corfu dashboard doom-modeline doom-themes
-;; 	      embark-consult exec-path-from-shell expand-region expreg
-;; 	      format-all git-gutter goto-last-change
-;; 	      highlight-indent-guides highlight-parentheses
-;; 	      indent-bars indent-guide ligature marginalia meow
-;; 	      neotree nerd-icons-completion nerd-icons-dired nyan-mode
-;; 	      orderless org-bullets org-modern org-roam
-;; 	      page-break-lines projectile rainbow-delimiters
-;; 	      smartparens surround undo-fu undo-fu-session valign
-;; 	      vertico vundo yasnippet)))
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(avy-background-face ((t (:background unspecified :foreground "gray60"))))
-;;  '(avy-goto-char-timer-face ((t (:foreground "skyblue" :background unspecified))))
-;;  '(avy-lead-face ((t (:foreground "red" :background unspecified))))
-;;  '(avy-lead-face-0 ((t (:foreground "red" :background unspecified))))
-;;  '(avy-lead-face-1 ((t (:foreground "red" :background unspecified))))
-;;  '(avy-lead-face-2 ((t (:foreground "red" :background unspecified)))))
+
+
+
+
+
+;; ============================================================
+;; 自动记忆窗口大小和位置
+;; ============================================================
+
+;; 1. 定义保存配置文件的路径 (存放在 ~/.emacs.d/.frame-params)
+(defvar my-frame-params-file (locate-user-emacs-file ".frame-params"))
+
+;; 2. 保存窗口参数的函数
+(defun my-save-frame-params ()
+  "退出时保存当前 Frame 的几何参数"
+  (when (display-graphic-p) ;; 只有在图形界面下才执行
+    (with-temp-file my-frame-params-file
+      (insert (prin1-to-string
+               (list 
+                ;; 保存宽高
+                (cons 'width (frame-parameter nil 'width))
+                (cons 'height (frame-parameter nil 'height))
+                ;; 保存位置 (左上角坐标)
+                (cons 'left (frame-parameter nil 'left))
+                (cons 'top (frame-parameter nil 'top))
+                ;; 保存全屏/最大化状态
+                (cons 'fullscreen (frame-parameter nil 'fullscreen))))))))
+
+;; 3. 读取并应用窗口参数的函数
+(defun my-load-frame-params ()
+  "启动时读取并恢复 Frame 参数"
+  (when (and (display-graphic-p) (file-exists-p my-frame-params-file))
+    (let* ((params (with-temp-buffer
+                     (insert-file-contents my-frame-params-file)
+                     (read (current-buffer))))
+           (fullscreen (alist-get 'fullscreen params)))
+      
+      ;; 应用位置和大小
+      (modify-frame-parameters nil params)
+      
+      ;; 额外处理全屏状态 (防止有时不生效)
+      (when fullscreen
+        (set-frame-parameter nil 'fullscreen fullscreen)))))
+
+;; 4. 绑定钩子 (Hook)
+;; 退出 Emacs 时保存
+(add-hook 'kill-emacs-hook #'my-save-frame-params)
+;; 窗口系统初始化完成后加载 (比 after-init-hook 更适合处理 GUI 尺寸)
+(add-hook 'window-setup-hook #'my-load-frame-params)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auth-source-save-behavior nil)
  '(package-selected-packages nil))
