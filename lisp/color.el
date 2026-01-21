@@ -1,11 +1,11 @@
 ;; 注释颜色
 (set-face-foreground 'font-lock-comment-face "gray60")
 ;; v模式颜色
-  (set-face-attribute 'region nil :background "deepskyblue4")
+  (set-face-attribute 'region nil :background "LightSkyBlue1")
   (set-face-attribute 'mouse-drag-and-drop-region nil :background "blue")
   ;; ;; 搜索颜色
-  (set-face-attribute 'lazy-highlight nil :foreground "black" :background "green")
-  (set-face-attribute 'isearch nil :foreground "black" :background "deeppink")
+  (set-face-attribute 'lazy-highlight nil :foreground "black" :background "gold1")
+  (set-face-attribute 'isearch nil :foreground "black" :background "LightSkyBlue1")
   ;; 括号颜色
   ;; (set-face-attribute 'show-paren-match nil :foreground "DeepPink" :background "#00000000")
   ;; ;; vertico

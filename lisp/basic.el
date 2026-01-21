@@ -1,6 +1,22 @@
-(setq scroll-step 1)
-(setq scroll-margin 5)
-(setq scroll-conservatively 9999)
+;; 强制所有通过 emacsclient 创建的新窗口夺取焦点
+(add-hook 'server-after-make-frame-hook
+          (lambda ()
+            (let ((frame (selected-frame)))
+              ;; 1. 强制使窗口可见
+              (make-frame-visible frame)
+              ;; 2. 提升窗口层级
+              (raise-frame frame)
+              ;; 3. 夺取系统输入焦点
+              (select-frame-set-input-focus frame)
+              ;; 4. 针对 GNOME/Wayland 的额外补丁：取消最小化状态
+              (set-frame-parameter frame 'visibility t))))
+
+;; 终端粘贴时替换
+(defadvice xterm-paste (before delete-selection activate)
+  "Before pasting, delete the selection if there is one."
+  (when (use-region-p)
+    (delete-region (region-beginning) (region-end))))
+
 
 (setq make-backup-files nil)
 (setq auto-save-default nil)
@@ -30,30 +46,24 @@
 
 ;; 终端鼠标支持
 (xterm-mouse-mode 1)
+(pixel-scroll-precision-mode 1)
+;; (setq scroll-step 1)
+;; (setq scroll-margin 5)
+;; (setq scroll-conservatively 9999)
 
 ;; 启动守护进程
 (when (display-graphic-p)  ; 检查是否在图形界面中
-(use-package server
-  :config
-  (unless (server-running-p)
-    (server-start)
-    ))
-  )       ; 启动 server
+  (use-package server
+    :config
+    (unless (server-running-p)
+      (server-start)
+      ))
+  )
 
 ;; 粘贴时删除选区
 (use-package delsel
   :config
   (delete-selection-mode +1))
-
-;; 阻止超出文本
-;; (setq track-eol t)
-;; (setq mode-require-final-newline nil)
-;; (setq require-final-newline nil)
-;; (defun my-prevent-point-max ()
-;;   (unless (minibufferp)
-;;     (when (>= (point) (point-max))
-;;       (goto-char (max (1- (point-max)) (point-min))))))
-;; (add-hook 'post-command-hook #'my-prevent-point-max)
 
 (unless (boundp 'image-scaling-factor)
   (defvar image-scaling-factor 1.0
@@ -61,21 +71,6 @@
 (show-paren-mode -1)
 
 
-(setq track-eol t)
+;; (setq track-eol t)
 (setq mode-require-final-newline nil)
 (setq require-final-newline nil)
-
-(defun my-prevent-point-beyond-last-char ()
-  "阻止光标超出最后一行文本末尾，绝对不允许到最后空行。
-允许停在最后字符后，但不能换行。"
-  (unless (minibufferp)
-    (let* ((max-pos (point-max))
-           (last-line-end (save-excursion
-                            (goto-char max-pos)
-                            (if (> (point) (point-min))
-                                (1- (point))  ;; 最后字符位置
-                              (point)))))
-      (when (> (point) last-line-end)
-        (goto-char last-line-end)))))
-
-(add-hook 'post-command-hook #'my-prevent-point-beyond-last-char)

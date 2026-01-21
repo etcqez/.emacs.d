@@ -21,6 +21,7 @@
    '("<escape>" . ignore))
   
   (meow-normal-define-key
+   '("M" . consult-mark)
    '("t" . consult-buffer)
    '("s" . avy-goto-char-timer)
    ;; '("C-f" . scroll-up-command)
@@ -111,7 +112,6 @@
    '("/" . isearch-forward)
    '("n" . meow-search)
    '("N" . isearch-repeat-backward)
-   '("*" . isearch-forward-symbol-at-point)
    '("=" . indent-region))
   
   (meow-leader-define-key
@@ -150,3 +150,15 @@
           ;; meow-expand-hint-counts nil
           ))
 
+(defun my-meow-fix-empty-eof-advice (&rest _args)
+  "修复 meow-change 在行尾或 EOF 处无法使用及光标块状的 bug。"
+  (when (and (not (region-active-p)) ; 只有在没有手动选中时才干预
+             (eolp))                ; 处于行尾（包含你说的 EOF 空行和最后一个字符后）
+    ;; 技巧：插入一个临时空格并把光标移上去
+    ;; 这样随后的 meow-change 就会‘改变’这个空格（删除它并进入插入模式）
+    ;; 这能完美触发 Meow 的状态切换机制，解决块状光标和无法退出的问题
+    (insert " ")
+    (backward-char 1)))
+
+;; 维持原有的 advice 绑定
+(advice-add 'meow-change :before #'my-meow-fix-empty-eof-advice)

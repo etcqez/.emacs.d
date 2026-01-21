@@ -27,4 +27,4 @@
   (scroll-bar-mode -1))
 
 ;;; early-init.el ends here
-(load-theme 'wombat)
+;; (load-theme 'wombat)

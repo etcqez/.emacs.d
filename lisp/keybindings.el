@@ -1,3 +1,13 @@
+;; 将物理键翻译为标准的 Emacs 组合键
+(define-key key-translation-map (kbd "<up>") (kbd "C-p"))
+(define-key key-translation-map (kbd "<down>") (kbd "C-n"))
+(define-key key-translation-map (kbd "<left>") (kbd "C-b"))
+(define-key key-translation-map (kbd "<right>") (kbd "C-f"))
+(define-key key-translation-map (kbd "<home>") (kbd "C-a"))
+(define-key key-translation-map (kbd "<end>") (kbd "C-e"))
+
+;; (global-set-key (kbd "C-x <right>") 'find-file)
+;; (global-set-key (kbd "C-f") 'find-file)
 ;; (define-key meow-insert-state-keymap (kbd "C-x C-f") 'company-files)
 (define-key meow-insert-state-keymap (kbd "C-g") 'meow-insert-exit)
 (define-key meow-insert-state-keymap (kbd "<escape>") 'meow-normal-mode)
