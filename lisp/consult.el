@@ -208,3 +208,7 @@
 ;;               ("M-DEL" . vertico-directory-delete-word))
 ;;   ;; Tidy shadowed file names
 ;;   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
+(use-package consult
+  :ensure t
+  :bind (("M-y" . consult-yank-pop))) ;; 覆盖默认的 M-y

@@ -38,7 +38,7 @@
 (electric-pair-mode 1)
 
 ;; 命令历史 文件历史
-(setq recentf-max-saved-items 50) ;; 或者更大
+(setq recentf-max-saved-items 100) ;; 或者更大
 (recentf-mode 1)
 (savehist-mode 1)
 

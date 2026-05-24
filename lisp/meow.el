@@ -1,6 +1,9 @@
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
+   '("i" . meow-insert)
+   '("<escape>" . ignore)
+   '("Q" . save-buffers-kill-terminal)
    '("s" . avy-goto-char-timer)
    '("t" . consult-buffer)
    '("j" . meow-next)
@@ -17,13 +20,13 @@
    '("b" . meow-back-word)
    '("g" . meow-cancel-selection)
    '("x" . meow-line)
-   '("y" . meow-save)
-   '("<escape>" . ignore))
+   '("y" . meow-save))
   
   (meow-normal-define-key
+   '("Q" . save-buffers-kill-terminal)
    '("M" . consult-mark)
    '("t" . consult-buffer)
-   '("s" . avy-goto-char-timer)
+   '("S" . avy-goto-char-timer)
    ;; '("C-f" . scroll-up-command)
    ;; '("C-b" . scroll-down-command)
    '("}" . forward-paragraph)
@@ -54,12 +57,13 @@
    '("." . meow-bounds-of-thing)
    '("[" . meow-beginning-of-thing)
    '("]" . meow-end-of-thing)
-   '("a" . my-meow-append)
+   '("a" . meow-append)
    '("A" . meow-open-below)
    '("b" . meow-back-word)
    '("B" . meow-back-symbol)
    '("c" . meow-change)
-   '("D" . meow-kill-whole-line)
+   '("d" . meow-delete)
+   '("D" . meow-backward-delete)
    '("f" . meow-find)
    '("F" . consult-grep)
    '("e" . meow-mark-word)
@@ -78,24 +82,26 @@
    '("L" . meow-right-expand)
    '("m" . meow-join)
    '("n" . meow-search)
-   ;; '("o" . meow-block)
-   ;; '("O" . meow-to-block)
+   '("o" . meow-block)
+   '("O" . meow-to-block)
    '("p" . yank)
    '("q" . meow-quit)
-   ;; '("S" . avy-goto-line)
-   '("T" . meow-swap-grab)
+   '("r" . meow-replace)
+   '("R" . meow-swap-grab)
+   '("s" . meow-kill)
    '("u" . meow-undo)
-   '("U" . undo-redo)
+   '("U" . meow-undo-in-selection)
+   ;; '("U" . undo-redo)
    '("v" . meow-visit)
    '("w" . meow-next-word)
    '("W" . meow-next-symbol)
+   '("M-w" . meow-clipboard-save)
    ;; '("Q" . meow-goto-line)
    ;; '("d" . meow-kill)
    ;; '("U" . meow-undo-in-selection)
    '("x" . meow-line)
    '("X" . meow-goto-line)
    '("y" . meow-save)
-   '("M-w" . meow-clipboard-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
    '("'" . repeat)
@@ -116,6 +122,7 @@
   
   (meow-leader-define-key
    ;; SPC j/k will run the original command in MOTION state.
+   '("q" . save-buffers-kill-terminal)
    '("j" . "H-j")
    '("k" . "H-k")
    ;; Use SPC (0-9) for digit arguments.
@@ -136,7 +143,7 @@
    '("S" . surround-insert)
    '("C" . surround-change)
    '("K" . surround-kill)
-   '("q" . save-buffers-kill-terminal)))
+   ))
 
 (use-package meow
   :init
@@ -146,19 +153,19 @@
   (meow-setup-line-number)
   (setq meow-use-cursor-position-hack t
         meow-use-enhanced-selection-effect t)  ;; optional, for visual effect
-  (setopt meow-use-clipboard nil
+  (setopt meow-use-clipboard t
           ;; meow-expand-hint-counts nil
           ))
 
-(defun my-meow-fix-empty-eof-advice (&rest _args)
-  "修复 meow-change 在行尾或 EOF 处无法使用及光标块状的 bug。"
-  (when (and (not (region-active-p)) ; 只有在没有手动选中时才干预
-             (eolp))                ; 处于行尾（包含你说的 EOF 空行和最后一个字符后）
-    ;; 技巧：插入一个临时空格并把光标移上去
-    ;; 这样随后的 meow-change 就会‘改变’这个空格（删除它并进入插入模式）
-    ;; 这能完美触发 Meow 的状态切换机制，解决块状光标和无法退出的问题
-    (insert " ")
-    (backward-char 1)))
+;; (defun my-meow-fix-empty-eof-advice (&rest _args)
+;;   "修复 meow-change 在行尾或 EOF 处无法使用及光标块状的 bug。"
+;;   (when (and (not (region-active-p)) ; 只有在没有手动选中时才干预
+;;              (eolp))                ; 处于行尾（包含你说的 EOF 空行和最后一个字符后）
+;;     ;; 技巧：插入一个临时空格并把光标移上去
+;;     ;; 这样随后的 meow-change 就会‘改变’这个空格（删除它并进入插入模式）
+;;     ;; 这能完美触发 Meow 的状态切换机制，解决块状光标和无法退出的问题
+;;     (insert " ")
+;;     (backward-char 1)))
 
-;; 维持原有的 advice 绑定
-(advice-add 'meow-change :before #'my-meow-fix-empty-eof-advice)
+;; ;; 维持原有的 advice 绑定
+;; (advice-add 'meow-change :before #'my-meow-fix-empty-eof-advice)
